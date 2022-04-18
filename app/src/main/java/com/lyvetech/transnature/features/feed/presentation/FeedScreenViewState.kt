@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.ui
+package com.lyvetech.transnature.features.feed.presentation
 
 import com.lyvetech.transnature.features.feed.domain.model.Trail
 

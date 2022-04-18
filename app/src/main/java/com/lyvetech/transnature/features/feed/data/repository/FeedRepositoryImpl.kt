@@ -1,6 +1,5 @@
 package com.lyvetech.transnature.features.feed.data.repository
 
-import com.lyvetech.transnature.core.di.IoDispatcher
 import com.lyvetech.transnature.core.util.Resource
 import com.lyvetech.transnature.features.feed.data.local.FeedDao
 import com.lyvetech.transnature.features.feed.data.remote.FeedApiService

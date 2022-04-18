@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Transnature" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Transnature" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,5 +12,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!-- Headline1 text. -->
+    <style name="TextAppearance.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/red_hat_display_bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- Headline2 text. -->
+    <style name="TextAppearance.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/red_hat_display_medium</item>
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>
