@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.ui
+package com.lyvetech.transnature.features.feed.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

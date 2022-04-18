@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.lyvetech.transnature.features.feed.ui.FeedFragment"
+        android:name="com.lyvetech.transnature.features.feed.presentation.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" />
 </navigation>

@@ -1,8 +1,6 @@
-package com.lyvetech.transnature.features.feed.ui
+package com.lyvetech.transnature.features.feed.presentation
 
 import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lyvetech.transnature.core.util.Resource
@@ -10,10 +8,7 @@ import com.lyvetech.transnature.features.feed.domain.usecase.GetAllTrailsUseCase
 import com.lyvetech.transnature.features.feed.domain.usecase.GetSearchedTrailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,13 +18,10 @@ class FeedViewModel @Inject constructor(
     private val getSearchedTrailsUseCase: GetSearchedTrailsUseCase
 ) : ViewModel() {
 
-    private val _searchQuery = mutableStateOf("")
-    val searchQuery: State<String> = _searchQuery
+    private val _trailState = MutableStateFlow(FeedScreenViewState())
+    val trailState: StateFlow<FeedScreenViewState> = _trailState
 
-    private val _trailState = mutableStateOf(FeedScreenViewState())
-    val trailState: State<FeedScreenViewState> = _trailState
-
-    private val _eventFlow = MutableSharedFlow<UIEvent>()
+    private val _eventFlow = MutableSharedFlow<UIEvent?>()
     val eventFlow = _eventFlow.asSharedFlow()
 
     private var trailJob: Job? = null
