@@ -67,7 +67,7 @@ class FeedViewModel @Inject constructor(
 //        }
 //    }
 
-    private fun getAllTrails() {
+    fun getAllTrails() {
         trailJob?.cancel()
         trailJob = viewModelScope.launch {
             getAllTrailsUseCase()
@@ -78,7 +78,6 @@ class FeedViewModel @Inject constructor(
                                 trailItems = result.data ?: emptyList(),
                                 isLoading = false
                             )
-                            Log.i("DEBUG", trailState.value.trailItems.size.toString())
                         }
                         is Resource.Error -> {
                             _trailState.value = trailState.value.copy(
