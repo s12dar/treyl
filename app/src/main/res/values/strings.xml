@@ -9,4 +9,10 @@
 
     <!-- Feed fragment -->
     <string name="txt_home">Home</string>
+
+    <!-- bottom nav menu  -->
+    <string name="title_menu_feed">Feed</string>
+    <string name="title_menu_fav">Favorites</string>
+    <string name="title_menu_history">History</string>
+    <string name="title_menu_profile">Profile</string>
 </resources>

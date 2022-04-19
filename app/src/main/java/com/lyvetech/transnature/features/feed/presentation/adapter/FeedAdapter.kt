@@ -2,6 +2,7 @@ package com.lyvetech.transnature.features.feed.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
@@ -52,7 +53,7 @@ class FeedAdapter(
         }
     }
 
-    private val differ = AsyncListDiffer(this, differCallback)
+    val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val binding = TrailItemBinding
@@ -61,6 +62,7 @@ class FeedAdapter(
     }
 
     override fun getItemCount(): Int {
+        Log.i("DEBUG", differ.currentList.size.toString())
         return differ.currentList.size
     }
 
