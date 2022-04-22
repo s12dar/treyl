@@ -21,5 +21,17 @@
         android:id="@+id/feedFragment"
         android:name="com.lyvetech.transnature.features.feed.presentation.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed">
+        <action
+            android:id="@+id/action_feedFragment_to_feedInfoFragment"
+            app:destination="@id/feedInfoFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedInfoFragment"
+        android:name="com.lyvetech.transnature.features.feed_info.presentation.FeedInfoFragment"
+        android:label="Trail" />
 </navigation>

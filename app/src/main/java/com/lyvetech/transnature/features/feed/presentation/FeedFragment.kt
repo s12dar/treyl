@@ -10,14 +10,18 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.lyvetech.transnature.R
+import com.lyvetech.transnature.core.util.Constants.BUNDLE_TRAIL_KEY
 import com.lyvetech.transnature.core.util.Constants.QUERY_PAGE_SIZE
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFeedBinding
 import com.lyvetech.transnature.features.feed.presentation.adapter.FeedAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
@@ -26,6 +30,9 @@ class FeedFragment : Fragment() {
     private val viewModel: FeedViewModel by viewModels()
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var state: StateFlow<FeedScreenViewState>
+
+    @Inject
+    lateinit var bundle: Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +54,8 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Handler(Looper.getMainLooper())
             .postDelayed({ getTrails() }, 2000)
+
+        manageTrailClicked()
     }
 
     private fun getTrails() {
@@ -96,6 +105,15 @@ class FeedFragment : Fragment() {
             adapter = feedAdapter
             layoutManager = GridLayoutManager(context, 2)
             addOnScrollListener(this@FeedFragment.scrollListener)
+        }
+    }
+
+    private fun manageTrailClicked() {
+        feedAdapter.setOnItemClickListener {
+            bundle.apply {
+                putSerializable(BUNDLE_TRAIL_KEY, it)
+            }
+            findNavController().navigate(R.id.action_feedFragment_to_feedInfoFragment, bundle)
         }
     }
 }
