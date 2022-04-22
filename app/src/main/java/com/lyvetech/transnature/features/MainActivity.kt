@@ -26,12 +26,12 @@ class MainActivity : AppCompatActivity(), OnboardingUtils {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        manageBottomNavigation()
-        setSupportActionBar(binding.toolbar)
-
-        val navController = findNavController(R.id.nav_host)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        manageBottomNavigation()
+//        setSupportActionBar(binding.toolbar)
+//
+//        val navController = findNavController(R.id.nav_host)
+//        appBarConfiguration = AppBarConfiguration(navController.graph)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun showProgressBar() {
@@ -43,8 +43,7 @@ class MainActivity : AppCompatActivity(), OnboardingUtils {
     }
 
     override fun showTopAppBar(title: String) {
-        binding.toolbar.title = title
-        binding.appBarLayout.visibility = View.VISIBLE
+        TODO("Not yet implemented")
     }
 
     override fun hideTopAppBar() {
@@ -65,9 +64,9 @@ class MainActivity : AppCompatActivity(), OnboardingUtils {
         binding.bottomNavigation.setupWithNavController(navHostFragment.findNavController())
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        val navController = findNavController(R.id.nav_host)
+//        return navController.navigateUp(appBarConfiguration)
+//                || super.onSupportNavigateUp()
+//    }
 }

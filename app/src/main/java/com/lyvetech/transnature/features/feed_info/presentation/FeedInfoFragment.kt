@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants.BUNDLE_TRAIL_KEY
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFeedInfoBinding
@@ -38,6 +40,7 @@ class FeedInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUI()
+        manageBindingViews()
     }
 
     private fun managePassedArguments(argument: Bundle?) {
@@ -60,5 +63,13 @@ class FeedInfoFragment : Fragment() {
 
     private fun hideTopAppBar() {
         activity?.actionBar?.hide()
+    }
+
+    private fun manageBindingViews() {
+        with(binding) {
+            fabNavigate.setOnClickListener {
+                findNavController().navigate(R.id.action_feedInfoFragment_to_trackingFragment)
+            }
+        }
     }
 }

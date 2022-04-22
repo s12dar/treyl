@@ -1,9 +1,10 @@
 package com.lyvetech.transnature.features.feed.presentation
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,15 +17,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants.BUNDLE_TRAIL_KEY
 import com.lyvetech.transnature.core.util.Constants.QUERY_PAGE_SIZE
+import com.lyvetech.transnature.core.util.Constants.REQUEST_LOCATION_PERMISSION
+import com.lyvetech.transnature.core.util.LocationUtils
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFeedBinding
 import com.lyvetech.transnature.features.feed.presentation.adapter.FeedAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
+import pub.devrel.easypermissions.AppSettingsDialog
+import pub.devrel.easypermissions.EasyPermissions
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FeedFragment : Fragment() {
+class FeedFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: FragmentFeedBinding
     private val viewModel: FeedViewModel by viewModels()
@@ -54,12 +59,11 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Handler(Looper.getMainLooper())
             .postDelayed({ getTrails() }, 2000)
-
+        requestLocationPermissions()
         manageTrailClicked()
     }
 
     private fun getTrails() {
-        Log.i("Hi Serdar", state.value.toString())
         feedAdapter.differ.submitList(state.value.trailItems)
     }
 
@@ -114,6 +118,40 @@ class FeedFragment : Fragment() {
                 putSerializable(BUNDLE_TRAIL_KEY, it)
             }
             findNavController().navigate(R.id.action_feedFragment_to_feedInfoFragment, bundle)
+        }
+    }
+
+    private fun requestLocationPermissions() {
+        if (LocationUtils.hasLocationPermissions(requireContext())) {
+            return
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            EasyPermissions.requestPermissions(
+                this,
+                "You need to accept location permissions to use this app",
+                REQUEST_LOCATION_PERMISSION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        } else {
+            EasyPermissions.requestPermissions(
+                this,
+                "You need to accept location permissions to use this app",
+                REQUEST_LOCATION_PERMISSION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            )
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {}
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this).build().show()
+        } else {
+            requestLocationPermissions()
         }
     }
 }
