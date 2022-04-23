@@ -16,6 +16,12 @@ class FeedLocalDataSourceImpl @Inject constructor(
             feedDao.insertTrails(trails = trails)
         }
 
+    override suspend fun updateTrail(trail: TrailEntity) {
+        withContext(ioDispatcher) {
+            feedDao.updateTrail(trail = trail)
+        }
+    }
+
     override suspend fun deleteTrails(trails: List<String>) =
         withContext(ioDispatcher) {
             feedDao.deleteTrails(trails = trails)

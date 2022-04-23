@@ -6,6 +6,8 @@ interface FeedLocalDataSource {
 
     suspend fun insertTrails(trails: List<TrailEntity>)
 
+    suspend fun updateTrail(trail: TrailEntity)
+
     suspend fun deleteTrails(trails: List<String>)
 
     suspend fun getSearchedTrails(trail: String): List<TrailEntity>

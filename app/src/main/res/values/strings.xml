@@ -4,6 +4,7 @@
 
     <!-- Trail item -->
     <string name="desc_trail_img">Trail image</string>
+    <string name="desc_save_icon">Save icon</string>
 
     <!-- Splash fragment -->
     <string name="desc_splash_img">Welcome to Treyl</string>
