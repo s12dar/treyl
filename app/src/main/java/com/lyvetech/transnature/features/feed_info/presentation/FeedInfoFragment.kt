@@ -1,11 +1,14 @@
 package com.lyvetech.transnature.features.feed_info.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants.BUNDLE_TRAIL_KEY
 import com.lyvetech.transnature.core.util.OnboardingUtils
@@ -58,6 +61,18 @@ class FeedInfoFragment : Fragment() {
                 tvDistance.text = "${trail.distanceInMeters / 1000} km"
                 tvDifficulty.text = trail.difficultyLevel
                 tvLocation.text = trail.location
+
+                // Glide takes care of setting fetched image uri to holder
+                if (trail.imgUrl.isNotEmpty()) {
+                    Glide.with(requireContext())
+                        .asBitmap()
+                        .load(trail.imgUrl.toUri())
+                        .into(binding.ivTrail)
+                } else {
+                    Glide.with(requireContext())
+                        .load(requireContext().getDrawable(R.drawable.img))
+                        .into(binding.ivTrail)
+                }
             }
         }
     }
