@@ -1,108 +1,56 @@
 package com.lyvetech.transnature.features.feed.presentation
 
-import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lyvetech.transnature.core.util.Resource
-import com.lyvetech.transnature.features.feed.domain.usecase.GetAllTrailsUseCase
-import com.lyvetech.transnature.features.feed.domain.usecase.GetSearchedTrailsUseCase
+import com.lyvetech.transnature.core.util.asLiveData
+import com.lyvetech.transnature.features.feed.domain.model.Trail
+import com.lyvetech.transnature.features.feed.domain.usecase.GetTrailsUseCaseImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
-    private val getAllTrailsUseCase: GetAllTrailsUseCase,
-    private val getSearchedTrailsUseCase: GetSearchedTrailsUseCase
+    private val getTrailsUseCaseImpl: GetTrailsUseCaseImpl,
 ) : ViewModel() {
 
-    private val _trailState = MutableStateFlow(FeedScreenViewState())
-    val trailState: StateFlow<FeedScreenViewState> = _trailState
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading = _isLoading.asLiveData()
 
-    private val _eventFlow = MutableSharedFlow<UIEvent?>()
-    val eventFlow = _eventFlow.asSharedFlow()
+    private val _dataFetchState = MutableLiveData<Boolean>()
+    val dataFetchState = _dataFetchState.asLiveData()
 
-    private var trailJob: Job? = null
+    private val _trails = MutableLiveData<List<Trail>?>()
+    val trails = _trails.asLiveData()
 
     init {
         getAllTrails()
     }
 
-//    fun onSearchedTrails(query: String) {
-//        _searchQuery.value = query
-//        searchJob?.cancel()
-//        searchJob = viewModelScope.launch {
-//            delay(500)
-//            getSearchedTrailsUseCase(query)
-//                .onEach { result ->
-//                    when (result) {
-//                        is Resource.Success -> {
-//                            _trailState.value = trailState.value.copy(
-//                                trailItems = result.data ?: emptyList(),
-//                                isLoading = false
-//                            )
-//                        }
-//                        is Resource.Error -> {
-//                            _trailState.value = trailState.value.copy(
-//                                trailItems = result.data ?: emptyList(),
-//                                isLoading = false
-//                            )
-//
-//                            _eventFlow.emit(
-//                                UIEvent.ShowSnackBar(
-//                                    result.message ?: "Unknown error"
-//                                )
-//                            )
-//                        }
-//                        is Resource.Loading -> {
-//                            _trailState.value = trailState.value.copy(
-//                                trailItems = result.data ?: emptyList(),
-//                                isLoading = true
-//                            )
-//                        }
-//                    }
-//                }.launchIn(this)
-//        }
-//    }
-
-    fun getAllTrails() {
-        trailJob?.cancel()
-        trailJob = viewModelScope.launch {
-            getAllTrailsUseCase()
-                .onEach { result ->
-                    when (result) {
-                        is Resource.Success -> {
-                            _trailState.value = trailState.value.copy(
-                                trailItems = result.data ?: emptyList(),
-                                isLoading = false
-                            )
-                        }
-                        is Resource.Error -> {
-                            _trailState.value = trailState.value.copy(
-                                trailItems = result.data ?: emptyList(),
-                                isLoading = false
-                            )
-
-                            _eventFlow.emit(
-                                UIEvent.ShowSnackBar(
-                                    result.message ?: "Unknown error"
-                                )
-                            )
-                        }
-                        is Resource.Loading -> {
-                            _trailState.value = trailState.value.copy(
-                                trailItems = result.data ?: emptyList(),
-                                isLoading = true
-                            )
-                        }
+    private fun getAllTrails() {
+        _isLoading.postValue(true)
+        viewModelScope.launch {
+            when (val result = getTrailsUseCaseImpl.invoke()) {
+                is Resource.Success -> {
+                    _isLoading.value = false
+                    if (result.data != null) {
+                        val trails = result.data
+                        _dataFetchState.value = true
+                        _trails.value = trails
                     }
-                }.launchIn(this)
+                }
+                is Resource.Error -> {
+                    _isLoading.value = false
+                    _dataFetchState.value = false
+                    if (result.data != null) {
+                        val trails = result.data
+                        _trails.value = trails
+                    }
+                }
+                is Resource.Loading -> _isLoading.postValue(true)
+            }
         }
-    }
-
-    sealed class UIEvent {
-        data class ShowSnackBar(val message: String) : UIEvent()
     }
 }

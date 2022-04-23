@@ -1,13 +1,11 @@
 package com.lyvetech.transnature.features.feed.data.remote
 
+import com.lyvetech.transnature.core.util.Resource
 import com.lyvetech.transnature.features.feed.data.remote.dto.TrailDto
-import javax.inject.Inject
 
-class FeedRemoteDataSource @Inject constructor(
-    private val feedApiService: FeedApiService
-) {
+interface FeedRemoteDataSource {
 
-    suspend fun getAllTrails(): List<TrailDto> = feedApiService.getAllTrails()
+    suspend fun getAllTrails(): Resource<List<TrailDto>>
 
-    suspend fun getSearchedTrails(name: String) = feedApiService.getSearchedTrails(name)
+    suspend fun getSearchedTrails(name: String): Resource<List<TrailDto>>
 }

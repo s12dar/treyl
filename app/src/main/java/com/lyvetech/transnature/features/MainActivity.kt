@@ -3,12 +3,9 @@ package com.lyvetech.transnature.features
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.OnboardingUtils
@@ -35,11 +32,11 @@ class MainActivity : AppCompatActivity(), OnboardingUtils {
     }
 
     override fun showProgressBar() {
-        TODO("Not yet implemented")
+        binding.pb.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-        TODO("Not yet implemented")
+        binding.pb.visibility = View.GONE
     }
 
     override fun showTopAppBar(title: String) {

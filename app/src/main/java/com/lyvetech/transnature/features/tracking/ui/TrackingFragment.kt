@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -98,22 +97,19 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        map?.isMyLocationEnabled = true
-        map?.setOnMyLocationButtonClickListener(this)
-        map?.setOnMyLocationClickListener(this)
+        map?.apply {
+            isMyLocationEnabled = true
+            setOnMyLocationButtonClickListener(this@TrackingFragment)
+            setOnMyLocationClickListener(this@TrackingFragment)
+        }
         setCameraViewOfMap()
     }
 
     override fun onMyLocationButtonClick(): Boolean {
-        Toast.makeText(context, "MyLocation button clicked", Toast.LENGTH_SHORT)
-            .show()
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false
     }
 
-    override fun onMyLocationClick(location: Location) {
-        Toast.makeText(context, "Current location:\n$location", Toast.LENGTH_LONG)
-            .show()
-    }
+    override fun onMyLocationClick(location: Location) {}
 }

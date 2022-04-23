@@ -51,13 +51,14 @@ class FeedInfoFragment : Fragment() {
 
     private fun subscribeUI() {
         currentTrail.let { trail ->
-            binding.tvTitle.text = trail.name
-            binding.tvDuration.text = "54 minutes"
-            binding.tvDistance.text = "2.7 km"
-            binding.tvDifficulty.text = "Medium"
-            binding.tvLocation.text = "Sare Mare, Romania"
-            binding.tvAboutContent.text =
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+            binding.apply {
+                tvTitle.text = trail.name
+                tvAboutContent.text = trail.desc
+                tvDuration.text = "${trail.averageTimeInMillis / 60000} minutes"
+                tvDistance.text = "${trail.distanceInMeters / 1000} km"
+                tvDifficulty.text = trail.difficultyLevel
+                tvLocation.text = trail.location
+            }
         }
     }
 

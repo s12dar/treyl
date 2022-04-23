@@ -1,6 +1,6 @@
 package com.lyvetech.transnature.core.di
 
-import com.lyvetech.transnature.features.feed.data.remote.FeedApiService
+import com.lyvetech.transnature.features.feed.data.remote.retrofit.FeedApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

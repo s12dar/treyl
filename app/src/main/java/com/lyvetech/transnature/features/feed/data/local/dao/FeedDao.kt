@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.data.local
+package com.lyvetech.transnature.features.feed.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

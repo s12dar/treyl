@@ -22,12 +22,12 @@ class FeedAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         private val title = binding.tvTitle
-        private val subTitle = binding.tvSubtitle
+        private val location = binding.tvLocation
 
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(trail: Trail) {
             title.text = trail.name
-            subTitle.text = trail.desc
+            location.text = trail.location
 
             // Glide takes care of setting fetched image uri to holder
             if (trail.imgUrl?.isNotEmpty() == true) {

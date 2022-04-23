@@ -3,8 +3,6 @@ package com.lyvetech.transnature.features.feed.presentation
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +21,6 @@ import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFeedBinding
 import com.lyvetech.transnature.features.feed.presentation.adapter.FeedAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.StateFlow
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import javax.inject.Inject
@@ -34,7 +31,6 @@ class FeedFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     private lateinit var binding: FragmentFeedBinding
     private val viewModel: FeedViewModel by viewModels()
     private lateinit var feedAdapter: FeedAdapter
-    private lateinit var state: StateFlow<FeedScreenViewState>
 
     @Inject
     lateinit var bundle: Bundle
@@ -51,20 +47,14 @@ class FeedFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         binding = FragmentFeedBinding.inflate(inflater, container, false)
         (activity as OnboardingUtils).showBottomNav()
         setRecyclerView()
-        state = viewModel.trailState
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Handler(Looper.getMainLooper())
-            .postDelayed({ getTrails() }, 2000)
+        getTrails()
         requestLocationPermissions()
         manageTrailClicked()
-    }
-
-    private fun getTrails() {
-        feedAdapter.differ.submitList(state.value.trailItems)
     }
 
     private var isError = false
@@ -90,7 +80,6 @@ class FeedFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
                         isTotalMoreThanVisible && isScrolling
             if (shouldPaginate) {
-                viewModel.trailState.value.trailItems
                 isScrolling = false
             }
         }
@@ -109,6 +98,16 @@ class FeedFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             adapter = feedAdapter
             layoutManager = GridLayoutManager(context, 2)
             addOnScrollListener(this@FeedFragment.scrollListener)
+        }
+    }
+
+    private fun getTrails() {
+        (activity as OnboardingUtils).showProgressBar()
+        viewModel.trails.observe(viewLifecycleOwner) { trails ->
+            if (trails != null) {
+                feedAdapter.differ.submitList(trails)
+                (activity as OnboardingUtils).hideProgressBar()
+            }
         }
     }
 
