@@ -8,28 +8,37 @@ import com.lyvetech.transnature.features.feed.domain.model.Trail
 data class TrailEntity(
     val name: String,
     val desc: String,
-    val imgUrl: String,
+    val imgRefs: List<String>,
     val location: String,
     val startLatitude: Double,
     val startLongitude: Double,
     val endLatitude: Double,
     val endLongitude: Double,
     val distanceInMeters: Int,
+    val peakPointInMeters: Int,
     val averageTimeInMillis: Long,
     val difficultyLevel: String,
+    val accession: String,
+    val warning: String,
+    val isFav: Boolean = false,
     @PrimaryKey val id: Int? = null
 ) {
     fun toTrail() = Trail(
         name,
         desc,
-        imgUrl,
+        imgRefs,
         location,
         startLatitude,
         startLongitude,
         endLatitude,
         endLongitude,
         distanceInMeters,
+        peakPointInMeters,
         averageTimeInMillis,
-        difficultyLevel
+        difficultyLevel,
+        accession,
+        warning,
+        isFav,
+        id
     )
 }

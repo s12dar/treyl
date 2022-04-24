@@ -19,11 +19,12 @@
     <string name="title_menu_profile">Profile</string>
 
     <!-- Home info fragment -->
-    <string name="txt_distance_desc">Trail distance</string>
-    <string name="txt_duration_desc">Duration to finish</string>
-    <string name="txt_difficulty_desc">Difficulty level</string>
-    <string name="txt_click_to_navigate">Click to navigate</string>
-    <string name="txt_about_trail">About the trail</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_distance_desc">Distanța de traseu</string>
+    <string name="txt_duration_desc">Durata până la finalizare</string>
+    <string name="txt_difficulty_desc">Nivel de dificultate</string>
+    <string name="txt_peak_point">Punctul de vârf</string>
+    <string name="txt_about_trail">Despre traseu</string>
+    <string name="txt_accession_trail">Acces</string>
+    <string name="txt_warnings_trail">Atenționări</string>
+
 </resources>

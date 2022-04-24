@@ -5,15 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lyvetech.transnature.core.util.Resource
 import com.lyvetech.transnature.core.util.asLiveData
+import com.lyvetech.transnature.features.feed.di.DefaultDispatcher
 import com.lyvetech.transnature.features.feed.domain.model.Trail
 import com.lyvetech.transnature.features.feed.domain.usecase.GetTrailsUseCaseImpl
+import com.lyvetech.transnature.features.feed.domain.usecase.UpdateTrailUseCaseImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val getTrailsUseCaseImpl: GetTrailsUseCaseImpl,
+    private val updateTrailUseCase: UpdateTrailUseCaseImpl,
+    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -51,6 +56,12 @@ class FeedViewModel @Inject constructor(
                 }
                 is Resource.Loading -> _isLoading.postValue(true)
             }
+        }
+    }
+
+    fun updateTrail(trail: Trail) {
+        viewModelScope.launch(defaultDispatcher) {
+            updateTrailUseCase.invoke(trail)
         }
     }
 }

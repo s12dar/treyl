@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants.BUNDLE_TRAIL_KEY
 import com.lyvetech.transnature.core.util.Constants.QUERY_PAGE_SIZE
@@ -55,6 +56,7 @@ class FeedFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         getTrails()
         requestLocationPermissions()
         manageTrailClicked()
+        manageSaveClicked()
     }
 
     private var isError = false
@@ -117,6 +119,22 @@ class FeedFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 putSerializable(BUNDLE_TRAIL_KEY, it)
             }
             findNavController().navigate(R.id.action_feedFragment_to_feedInfoFragment, bundle)
+        }
+    }
+
+    private fun manageSaveClicked() {
+        feedAdapter.setOnSaveClickListener {
+            it.apply {
+                isFav = true
+                viewModel.updateTrail(this)
+            }
+
+            Snackbar.make(
+                requireView(),
+                "Yaay! We saved the trail",
+                Snackbar.LENGTH_SHORT
+            ).setAnchorView(binding.gl9Horizontal)
+                .show()
         }
     }
 
