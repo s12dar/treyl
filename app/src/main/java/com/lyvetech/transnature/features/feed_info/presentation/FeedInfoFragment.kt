@@ -67,18 +67,6 @@ class FeedInfoFragment : Fragment() {
                 tvPeakPoint.text = "${trail.peakPointInMeters} M"
                 tvAccessionContent.text = trail.accession
                 tvWarningsContent.text = trail.warning
-
-                // Glide takes care of setting fetched image uri to holder
-//                if (trail.imgRefs.first().isNotEmpty()) {
-//                    Glide.with(requireContext())
-//                        .asBitmap()
-//                        .load(trail.imgRefs.first().toUri())
-//                        .into(binding.ivTrail)
-//                } else {
-//                    Glide.with(requireContext())
-//                        .load(requireContext().getDrawable(R.drawable.img))
-//                        .into(binding.ivTrail)
-//                }
             }
         }
     }
@@ -109,13 +97,13 @@ class FeedInfoFragment : Fragment() {
         layoutParams.setMargins(8, 0, 8, 0)
         for (i in indicators.indices) {
             indicators[i] = ImageView(requireContext().applicationContext)
-            indicators[i]!!.setImageDrawable(
+            indicators[i]?.setImageDrawable(
                 ContextCompat.getDrawable(
                     requireContext().applicationContext,
                     R.drawable.indicator_inactive
                 )
             )
-            indicators[i]!!.layoutParams = layoutParams
+            indicators[i]?.layoutParams = layoutParams
             binding.indicators.addView(indicators[i])
         }
     }
