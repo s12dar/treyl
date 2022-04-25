@@ -21,6 +21,7 @@ data class TrailEntity(
     val accession: String,
     val warning: String,
     val isFav: Boolean = false,
+    val tag: String,
     @PrimaryKey val id: Int? = null
 ) {
     fun toTrail() = Trail(
@@ -39,6 +40,8 @@ data class TrailEntity(
         accession,
         warning,
         isFav,
+        tag,
+        null,
         id
     )
 }

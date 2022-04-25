@@ -12,15 +12,22 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
-import com.lyvetech.transnature.core.util.Constants.MAP_ZOOM
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.PolylineOptions
+import com.lyvetech.transnature.core.util.Constants
+import com.lyvetech.transnature.core.util.Constants.POLYLINE_COLOR
+import com.lyvetech.transnature.core.util.Constants.POLYLINE_WIDTH
 import com.lyvetech.transnature.databinding.FragmentTrackingBinding
+import com.lyvetech.transnature.features.feed.domain.model.Trail
 
 class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener {
 
     private lateinit var binding: FragmentTrackingBinding
     private var map: GoogleMap? = null
+    private lateinit var currentTrail: Trail
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var pathPoints = mutableListOf<LatLng>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +47,7 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        managePassedArguments(arguments)
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
     }
@@ -79,20 +87,55 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         binding.mapView.onSaveInstanceState(outState)
     }
 
-    private fun setCameraViewOfMap() {
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener {
-                moveCameraToUser(it.latitude, it.longitude)
-            }
+    private fun managePassedArguments(argument: Bundle?) {
+        argument?.let {
+            currentTrail = it.getSerializable(Constants.BUNDLE_ROUTE_KEY) as Trail
+        }
     }
 
-    private fun moveCameraToUser(lat: Double, lng: Double) {
-        map?.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                LatLng(lat, lng),
-                MAP_ZOOM
+//    private fun setCameraViewOfMap() {
+//        fusedLocationClient.lastLocation
+//            .addOnSuccessListener {
+//                moveCameraToUser(it.latitude, it.longitude)
+//            }
+//    }
+//
+//    private fun moveCameraToUser(lat: Double, lng: Double) {
+//        map?.animateCamera(
+//            CameraUpdateFactory.newLatLngZoom(
+//                LatLng(lat, lng),
+//                MAP_ZOOM
+//            )
+//        )
+//    }
+
+    private fun zoomToSeePolyline() {
+        val bounds = LatLngBounds.Builder()
+        for (position in currentTrail.route!!) {
+            bounds.include(position)
+        }
+
+        map?.moveCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                bounds.build(),
+                binding.mapView.width,
+                binding.mapView.height,
+                (binding.mapView.height * 0.05).toInt()
             )
         )
+    }
+
+    private fun addAllPolylines() {
+        addPathPoints()
+        val polylineOptions = PolylineOptions()
+            .color(POLYLINE_COLOR)
+            .width(POLYLINE_WIDTH)
+            .addAll(pathPoints)
+        map?.addPolyline(polylineOptions)
+    }
+
+    private fun addPathPoints() {
+        pathPoints = currentTrail.route as MutableList<LatLng>
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -102,7 +145,9 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             setOnMyLocationButtonClickListener(this@TrackingFragment)
             setOnMyLocationClickListener(this@TrackingFragment)
         }
-        setCameraViewOfMap()
+        addAllPolylines()
+        zoomToSeePolyline()
+//        setCameraViewOfMap()
     }
 
     override fun onMyLocationButtonClick(): Boolean {

@@ -1,5 +1,6 @@
 package com.lyvetech.transnature.features.feed.domain.model
 
+import com.google.android.gms.maps.model.LatLng
 import com.lyvetech.transnature.features.feed.data.local.entity.TrailEntity
 import java.io.Serializable
 
@@ -19,7 +20,9 @@ data class Trail(
     val accession: String,
     val warning: String,
     var isFav: Boolean,
-    val uid: Int?
+    val tag: String,
+    var route: List<LatLng>? = null,
+    val uid: Int?,
 ) : Serializable {
 
     fun toTrailEntity() = TrailEntity(
@@ -38,6 +41,7 @@ data class Trail(
         accession,
         warning,
         isFav,
+        tag,
         uid
     )
 }

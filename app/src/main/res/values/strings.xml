@@ -26,5 +26,7 @@
     <string name="txt_about_trail">Despre traseu</string>
     <string name="txt_accession_trail">Acces</string>
     <string name="txt_warnings_trail">Atenționări</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

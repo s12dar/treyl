@@ -16,7 +16,8 @@ data class TrailDto(
     val averageTimeInMillis: Long,
     val difficultyLevel: String,
     val accession: String,
-    val warning: String
+    val warning: String,
+    val tag: String
 ) {
     fun toTrailEntity(): TrailEntity {
         return TrailEntity(
@@ -25,7 +26,7 @@ data class TrailDto(
             startLongitude = startLongitude, endLatitude = endLatitude,
             endLongitude = endLongitude, distanceInMeters = distanceInMeters,
             peakPointInMeters = peakPointInMeters, averageTimeInMillis = averageTimeInMillis,
-            difficultyLevel = difficultyLevel, accession = accession, warning = warning
+            difficultyLevel = difficultyLevel, accession = accession, warning = warning, tag = tag
         )
     }
 }
