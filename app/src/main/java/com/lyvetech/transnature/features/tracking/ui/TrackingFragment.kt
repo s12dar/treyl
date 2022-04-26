@@ -96,21 +96,13 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         }
     }
 
-//    private fun setCameraViewOfMap() {
-//        fusedLocationClient.lastLocation
-//            .addOnSuccessListener {
-//                moveCameraToUser(it.latitude, it.longitude)
-//            }
-//    }
-//
-//    private fun moveCameraToUser(lat: Double, lng: Double) {
-//        map?.animateCamera(
-//            CameraUpdateFactory.newLatLngZoom(
-//                LatLng(lat, lng),
-//                MAP_ZOOM
-//            )
-//        )
-//    }
+    private fun manageBindingViews() {
+        with(binding) {
+            fabRoute.setOnClickListener {
+                zoomToSeePolyline()
+            }
+        }
+    }
 
     private fun zoomToSeePolyline() {
         val bounds = LatLngBounds.Builder()
