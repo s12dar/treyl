@@ -37,16 +37,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:contentDescription="@string/desc_trail_img" />
 
-            <ImageView
-                android:id="@+id/iv_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="@string/desc_save_icon"
-                android:src="@drawable/ic_save_24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -61,26 +51,13 @@
         app:layout_constraintTop_toBottomOf="@+id/cv_trail"
         tools:text="Sature bare" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_icon_peak_point"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_peak_point_20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
     <TextView
         android:id="@+id/tv_peak_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginStart="4dp"
-        app:layout_constraintStart_toEndOf="@+id/iv_icon_peak_point"
-        app:layout_constraintTop_toTopOf="@+id/iv_icon_peak_point"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_icon_peak_point"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:text="21000 M" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

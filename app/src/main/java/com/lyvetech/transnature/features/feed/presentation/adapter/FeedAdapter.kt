@@ -76,11 +76,11 @@ class FeedAdapter(
                 onItemClickListener?.let { it(trail) }
             }
         }
-        holder.itemView.findViewById<ImageView>(R.id.iv_save).apply {
-            setOnClickListener {
-                onSaveClickedListener?.let { it(trail) }
-            }
-        }
+//        holder.itemView.findViewById<ImageView>(R.id.iv_save).apply {
+//            setOnClickListener {
+//                onSaveClickedListener?.let { it(trail) }
+//            }
+//        }
     }
 
     fun setOnItemClickListener(listener: (Trail) -> Unit) {
