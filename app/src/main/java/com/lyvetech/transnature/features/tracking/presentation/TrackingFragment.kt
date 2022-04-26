@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.tracking.ui
+package com.lyvetech.transnature.features.tracking.presentation
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -19,6 +19,7 @@ import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants
 import com.lyvetech.transnature.core.util.Constants.POLYLINE_COLOR
 import com.lyvetech.transnature.core.util.Constants.POLYLINE_WIDTH
+import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentTrackingBinding
 import com.lyvetech.transnature.features.feed.domain.model.Trail
 
@@ -43,6 +44,7 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentTrackingBinding.inflate(inflater, container, false)
+        (activity as OnboardingUtils).hideTopAppBar()
         return binding.root
     }
 
@@ -134,8 +136,14 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
     }
 
     private fun addStartAndEndMarkers() {
-        val startingPoint = LatLng(currentTrail.startLatitude, currentTrail.startLongitude)
-        val endPoint = LatLng(currentTrail.endLatitude, currentTrail.endLongitude)
+        val startingPoint = LatLng(
+            currentTrail.startLatitude,
+            currentTrail.startLongitude
+        )
+        val endPoint = LatLng(
+            currentTrail.endLatitude,
+            currentTrail.endLongitude
+        )
 
         map?.addMarker(
             MarkerOptions()
@@ -154,8 +162,11 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
     private fun getBitmapDescriptorFromVector(vectorResId: Int): BitmapDescriptor? {
         return ContextCompat.getDrawable(requireContext(), vectorResId)?.run {
             setBounds(0, 0, intrinsicWidth, intrinsicHeight)
-            val bitmap =
-                Bitmap.createBitmap(intrinsicHeight, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            val bitmap = Bitmap.createBitmap(
+                intrinsicHeight,
+                intrinsicHeight,
+                Bitmap.Config.ARGB_8888
+            )
             draw(Canvas(bitmap))
             BitmapDescriptorFactory.fromBitmap(bitmap)
         }
