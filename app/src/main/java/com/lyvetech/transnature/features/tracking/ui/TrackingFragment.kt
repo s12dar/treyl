@@ -1,19 +1,21 @@
 package com.lyvetech.transnature.features.tracking.ui
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
+import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants
 import com.lyvetech.transnature.core.util.Constants.POLYLINE_COLOR
 import com.lyvetech.transnature.core.util.Constants.POLYLINE_WIDTH
@@ -48,6 +50,7 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         super.onViewCreated(view, savedInstanceState)
 
         managePassedArguments(arguments)
+        manageBindingViews()
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
     }
@@ -115,7 +118,7 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             bounds.include(position)
         }
 
-        map?.moveCamera(
+        map?.animateCamera(
             CameraUpdateFactory.newLatLngBounds(
                 bounds.build(),
                 binding.mapView.width,
@@ -138,6 +141,34 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         pathPoints = currentTrail.route as MutableList<LatLng>
     }
 
+    private fun addStartAndEndMarkers() {
+        val startingPoint = LatLng(currentTrail.startLatitude, currentTrail.startLongitude)
+        val endPoint = LatLng(currentTrail.endLatitude, currentTrail.endLongitude)
+
+        map?.addMarker(
+            MarkerOptions()
+                .position(startingPoint)
+                .title(R.string.title_starting_point.toString())
+                .icon(getBitmapDescriptorFromVector(R.drawable.ic_start_24dp))
+        )
+        map?.addMarker(
+            MarkerOptions()
+                .position(endPoint)
+                .title(R.string.title_ending_point.toString())
+                .icon(getBitmapDescriptorFromVector(R.drawable.ic_finish_24dp))
+        )
+    }
+
+    private fun getBitmapDescriptorFromVector(vectorResId: Int): BitmapDescriptor? {
+        return ContextCompat.getDrawable(requireContext(), vectorResId)?.run {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+            val bitmap =
+                Bitmap.createBitmap(intrinsicHeight, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            draw(Canvas(bitmap))
+            BitmapDescriptorFactory.fromBitmap(bitmap)
+        }
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         map?.apply {
@@ -146,8 +177,8 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             setOnMyLocationClickListener(this@TrackingFragment)
         }
         addAllPolylines()
+        addStartAndEndMarkers()
         zoomToSeePolyline()
-//        setCameraViewOfMap()
     }
 
     override fun onMyLocationButtonClick(): Boolean {

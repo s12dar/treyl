@@ -12,6 +12,13 @@
     <!-- Feed fragment -->
     <string name="txt_home">Home</string>
 
+    <!-- Tracking fragment -->
+    <string name="title_starting_point">Starting point</string>
+    <string name="title_ending_point">Ending point</string>
+
+    <!-- Favorites Fragment-->
+    <string name="txt_fav">Favorites</string>
+
     <!-- bottom nav menu  -->
     <string name="title_menu_feed">Feed</string>
     <string name="title_menu_fav">Favorites</string>
@@ -26,7 +33,5 @@
     <string name="txt_about_trail">Despre traseu</string>
     <string name="txt_accession_trail">Acces</string>
     <string name="txt_warnings_trail">Atenționări</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
