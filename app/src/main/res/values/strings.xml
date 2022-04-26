@@ -25,7 +25,7 @@
     <string name="title_menu_history">History</string>
     <string name="title_menu_profile">Profile</string>
 
-    <!-- Home info fragment -->
+    <!-- Feed info fragment -->
     <string name="txt_distance_desc">Distanța de traseu</string>
     <string name="txt_duration_desc">Durata până la finalizare</string>
     <string name="txt_difficulty_desc">Nivel de dificultate</string>
@@ -33,5 +33,9 @@
     <string name="txt_about_trail">Despre traseu</string>
     <string name="txt_accession_trail">Acces</string>
     <string name="txt_warnings_trail">Atenționări</string>
+    <string name="action_settings">Settings action</string>
+    <string name="action_favorite">Action favorite</string>
+    <string name="txt_trail_saved">Yaay! We added the trail to fav list</string>
+    <string name="txt_trail_removed">We removed the trail from fav list</string>
 
 </resources>

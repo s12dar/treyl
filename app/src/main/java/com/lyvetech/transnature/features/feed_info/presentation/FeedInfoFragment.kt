@@ -2,16 +2,16 @@ package com.lyvetech.transnature.features.feed_info.presentation
 
 import android.os.Bundle
 import android.util.Xml
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.snackbar.Snackbar
 import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants.BUNDLE_ROUTE_KEY
 import com.lyvetech.transnature.core.util.Constants.BUNDLE_TRAIL_KEY
@@ -34,6 +34,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FeedInfoFragment : Fragment() {
 
+    private val viewModel: FeedInfoViewModel by viewModels()
     private lateinit var binding: FragmentFeedInfoBinding
     private lateinit var currentTrail: Trail
     private lateinit var imgRefsAdapter: ImgRefsAdapter
@@ -43,7 +44,7 @@ class FeedInfoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        hideTopAppBar()
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -53,6 +54,7 @@ class FeedInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentFeedInfoBinding.inflate(inflater, container, false)
         (activity as OnboardingUtils).hideBottomNav()
+        (activity as OnboardingUtils).showTopAppBar()
         return binding.root
     }
 
@@ -62,6 +64,51 @@ class FeedInfoFragment : Fragment() {
         subscribeUI()
         manageBindingViews()
         setUpImgViewPager()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_top_app_bar, menu)
+        if (currentTrail.isFav) {
+            menu.getItem(0).icon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_fav_true_24dp)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_favorite -> {
+                manageActionButtonSelection(item)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun manageActionButtonSelection(item: MenuItem) {
+        if (!currentTrail.isFav) {
+            currentTrail.isFav = true
+            viewModel.updateTrail(currentTrail)
+            item.icon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_fav_true_24dp)
+
+            Snackbar.make(
+                requireView(),
+                R.string.txt_trail_saved,
+                Snackbar.LENGTH_SHORT
+            ).show()
+        } else {
+            currentTrail.isFav = false
+            viewModel.updateTrail(currentTrail)
+            item.icon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_fav_false_24dp)
+
+            Snackbar.make(
+                requireView(),
+                R.string.txt_trail_removed,
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun managePassedArguments(argument: Bundle?) {
@@ -142,10 +189,6 @@ class FeedInfoFragment : Fragment() {
                 )
             }
         }
-    }
-
-    private fun hideTopAppBar() {
-        activity?.actionBar?.hide()
     }
 
     private fun manageBindingViews() {

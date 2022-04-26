@@ -58,10 +58,4 @@ class FeedViewModel @Inject constructor(
             }
         }
     }
-
-    fun updateTrail(trail: Trail) {
-        viewModelScope.launch(defaultDispatcher) {
-            updateTrailUseCase.invoke(trail)
-        }
-    }
 }
