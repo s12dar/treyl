@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants
+import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFavoritesBinding
 import com.lyvetech.transnature.features.feed.presentation.favorites_feed.adapter.FavoritesAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment() {
@@ -20,6 +24,9 @@ class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
     private val viewModel: FavoritesViewModel by viewModels()
     private lateinit var favAdapter: FavoritesAdapter
+
+    @Inject
+    lateinit var bundle: Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +38,8 @@ class FavoritesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        (activity as OnboardingUtils).hideTopAppBar()
+        (activity as OnboardingUtils).showBottomNav()
         setRecyclerView()
         return binding.root
     }
@@ -38,6 +47,7 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getFavTrails()
+        manageTrailClicked()
     }
 
     private var isError = false
@@ -87,5 +97,14 @@ class FavoritesFragment : Fragment() {
     private fun getFavTrails() {
         val trails = viewModel.getFavTrails()
         favAdapter.differ.submitList(trails)
+    }
+
+    private fun manageTrailClicked() {
+        favAdapter.setOnItemClickListener {
+            bundle.apply {
+                putSerializable(Constants.BUNDLE_TRAIL_KEY, it)
+            }
+            findNavController().navigate(R.id.action_favoritesFragment_to_feedInfoFragment, bundle)
+        }
     }
 }
