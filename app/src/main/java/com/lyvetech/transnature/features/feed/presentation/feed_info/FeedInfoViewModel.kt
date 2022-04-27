@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed_info.presentation
+package com.lyvetech.transnature.features.feed.presentation.feed_info
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

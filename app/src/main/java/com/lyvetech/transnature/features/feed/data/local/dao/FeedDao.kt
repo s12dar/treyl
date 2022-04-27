@@ -17,6 +17,9 @@ interface FeedDao {
     @Query("SELECT * FROM TrailEntity WHERE name LIKE '%' || :trail || '%'")
     suspend fun getSearchedTrails(trail: String): List<TrailEntity>
 
+    @Query("SELECT * FROM TrailEntity WHERE isFav = 1")
+    suspend fun getFavoriteTrails(): List<TrailEntity>
+
     @Query("SELECT * FROM TrailEntity")
     suspend fun getAllTrails(): List<TrailEntity>
 }

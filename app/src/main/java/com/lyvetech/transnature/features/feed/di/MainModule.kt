@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed_info.di
+package com.lyvetech.transnature.features.feed.di
 
 import android.os.Bundle
 import dagger.Module
@@ -8,5 +8,9 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object FeedInfoModule {
+object MainModule {
+
+    @Provides
+    fun provideBundle(
+    ): Bundle = Bundle()
 }

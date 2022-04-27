@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed_info.presentation.adapter
+package com.lyvetech.transnature.features.feed.presentation.feed_info.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import com.bumptech.glide.Glide
 import com.lyvetech.transnature.R
 import com.lyvetech.transnature.databinding.VpImgItemBinding
 
-class ImgRefsAdapter(
+class FeedInfoAdapter(
     private val context: Context,
     private val imgRefs: List<String>
 ) :
-    RecyclerView.Adapter<ImgRefsAdapter.WelcomeViewHolder>() {
+    RecyclerView.Adapter<FeedInfoAdapter.WelcomeViewHolder>() {
     private lateinit var binding: VpImgItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WelcomeViewHolder {

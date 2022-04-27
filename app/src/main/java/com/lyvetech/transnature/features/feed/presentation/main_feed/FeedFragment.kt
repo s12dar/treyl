@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.presentation
+package com.lyvetech.transnature.features.feed.presentation.main_feed
 
 import android.Manifest
 import android.os.Build
@@ -19,7 +19,7 @@ import com.lyvetech.transnature.core.util.Constants.REQUEST_LOCATION_PERMISSION
 import com.lyvetech.transnature.core.util.LocationUtils
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFeedBinding
-import com.lyvetech.transnature.features.feed.presentation.adapter.FeedAdapter
+import com.lyvetech.transnature.features.feed.presentation.main_feed.adapter.FeedAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -107,8 +107,8 @@ class FeedFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         viewModel.trails.observe(viewLifecycleOwner) { trails ->
             if (trails != null) {
                 feedAdapter.differ.submitList(trails)
-                (activity as OnboardingUtils).hideProgressBar()
             }
+            (activity as OnboardingUtils).hideProgressBar()
         }
     }
 

@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed_info.presentation
+package com.lyvetech.transnature.features.feed.presentation.feed_info
 
 import android.os.Bundle
 import android.util.Xml
@@ -22,7 +22,7 @@ import com.lyvetech.transnature.core.util.Constants.TAG_SCARITA
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFeedInfoBinding
 import com.lyvetech.transnature.features.feed.domain.model.Trail
-import com.lyvetech.transnature.features.feed_info.presentation.adapter.ImgRefsAdapter
+import com.lyvetech.transnature.features.feed.presentation.feed_info.adapter.FeedInfoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
@@ -37,7 +37,7 @@ class FeedInfoFragment : Fragment() {
     private val viewModel: FeedInfoViewModel by viewModels()
     private lateinit var binding: FragmentFeedInfoBinding
     private lateinit var currentTrail: Trail
-    private lateinit var imgRefsAdapter: ImgRefsAdapter
+    private lateinit var feedInfoAdapter: FeedInfoAdapter
 
     @Inject
     lateinit var bundle: Bundle
@@ -133,11 +133,11 @@ class FeedInfoFragment : Fragment() {
     }
 
     private fun setUpImgViewPager() {
-        imgRefsAdapter =
-            ImgRefsAdapter(requireContext(), currentTrail.imgRefs)
+        feedInfoAdapter =
+            FeedInfoAdapter(requireContext(), currentTrail.imgRefs)
 
         val welcomeViewPager = binding.vpImgRefs
-        welcomeViewPager.adapter = imgRefsAdapter
+        welcomeViewPager.adapter = feedInfoAdapter
 
         setUpIndicators()
         setUpCurrentIndicator(0)
@@ -151,7 +151,7 @@ class FeedInfoFragment : Fragment() {
     }
 
     private fun setUpIndicators() {
-        val indicators = arrayOfNulls<ImageView>(imgRefsAdapter.itemCount)
+        val indicators = arrayOfNulls<ImageView>(feedInfoAdapter.itemCount)
         val layoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )

@@ -12,5 +12,7 @@ interface FeedLocalDataSource {
 
     suspend fun getSearchedTrails(trail: String): List<TrailEntity>
 
+    suspend fun getFavoriteTrails(): List<TrailEntity>
+
     suspend fun getAllTrails(): List<TrailEntity>
 }

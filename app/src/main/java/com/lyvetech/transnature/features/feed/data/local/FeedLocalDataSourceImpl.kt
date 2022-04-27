@@ -32,6 +32,11 @@ class FeedLocalDataSourceImpl @Inject constructor(
             return@withContext feedDao.getSearchedTrails(trail = trail)
         }
 
+    override suspend fun getFavoriteTrails(): List<TrailEntity> =
+        withContext(ioDispatcher) {
+            return@withContext feedDao.getFavoriteTrails()
+        }
+
     override suspend fun getAllTrails(): List<TrailEntity> =
         withContext(ioDispatcher) {
             return@withContext feedDao.getAllTrails()

@@ -1,9 +1,6 @@
 package com.lyvetech.transnature.features.feed.di
 
-import com.lyvetech.transnature.features.feed.domain.usecase.GetSearchedTrailsUseCase
-import com.lyvetech.transnature.features.feed.domain.usecase.GetSearchedTrailsUseCaseImpl
-import com.lyvetech.transnature.features.feed.domain.usecase.GetTrailsUseCase
-import com.lyvetech.transnature.features.feed.domain.usecase.GetTrailsUseCaseImpl
+import com.lyvetech.transnature.features.feed.domain.usecase.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,5 +19,10 @@ abstract class UseCaseModule {
     abstract fun bindSearchedTrailsUseCaseImpl(
         getSearchedUseCaseImpl: GetSearchedTrailsUseCaseImpl
     ): GetSearchedTrailsUseCase
+
+    @Binds
+    abstract fun bindGetFavTrailsUseCaseImpl(
+        getFavUseCaseImpl: GetFavTrailsUseCaseImpl
+    ): GetFavTrailsUseCase
 
 }

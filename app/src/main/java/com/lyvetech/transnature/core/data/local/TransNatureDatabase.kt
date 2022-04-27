@@ -9,7 +9,8 @@ import com.lyvetech.transnature.features.feed.data.util.Converters
 
 @Database(
     entities = [TrailEntity::class],
-    version = 8
+    version = 8,
+    exportSchema = false
 )
 @TypeConverters(
     Converters::class

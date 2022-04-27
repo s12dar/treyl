@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.presentation
+package com.lyvetech.transnature.features.feed.presentation.main_feed
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,8 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val getTrailsUseCaseImpl: GetTrailsUseCaseImpl,
-    private val updateTrailUseCase: UpdateTrailUseCaseImpl,
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
