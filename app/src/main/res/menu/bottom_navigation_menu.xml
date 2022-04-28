@@ -6,14 +6,14 @@
         android:icon="@drawable/ic_home_24dp"
         android:title="@string/title_menu_feed" />
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/favoritesFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_wishlist_24dp"
+        android:icon="@drawable/ic_save_24dp"
         android:title="@string/title_menu_fav" />
     <item
         android:id="@+id/pingFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_history_24dp"
+        android:icon="@drawable/ic_statistics_24dp"
         android:title="@string/title_menu_history" />
     <item
         android:id="@+id/profileFragment"

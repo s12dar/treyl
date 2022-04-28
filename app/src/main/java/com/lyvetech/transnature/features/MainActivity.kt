@@ -3,8 +3,12 @@ package com.lyvetech.transnature.features
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.OnboardingUtils
@@ -15,28 +19,35 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), OnboardingUtils {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        manageBottomNavigation()
         setContentView(binding.root)
+
+        manageBottomNavigation()
+        setSupportActionBar(binding.toolbar)
+
+        val navController = findNavController(R.id.nav_host)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun showProgressBar() {
-        TODO("Not yet implemented")
+        binding.pb.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-        TODO("Not yet implemented")
+        binding.pb.visibility = View.GONE
     }
 
-    override fun showTopAppBar(title: String) {
-        TODO("Not yet implemented")
+    override fun showTopAppBar() {
+        binding.appBarLayout.visibility = View.VISIBLE
     }
 
     override fun hideTopAppBar() {
-        TODO("Not yet implemented")
+        binding.appBarLayout.visibility = View.GONE
     }
 
     override fun showBottomNav() {
@@ -44,12 +55,18 @@ class MainActivity : AppCompatActivity(), OnboardingUtils {
     }
 
     override fun hideBottomNav() {
-        TODO("Not yet implemented")
+        binding.bottomNavigation.visibility = View.GONE
     }
 
     private fun manageBottomNavigation() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host) as NavHostFragment
         binding.bottomNavigation.setupWithNavController(navHostFragment.findNavController())
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
     }
 }

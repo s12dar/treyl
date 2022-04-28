@@ -1,17 +1,18 @@
 package com.lyvetech.transnature.features.feed.data.local
 
 import com.lyvetech.transnature.features.feed.data.local.entity.TrailEntity
-import javax.inject.Inject
 
-class FeedLocalDataSource @Inject constructor(
-    private val feedDao: FeedDao
-) {
+interface FeedLocalDataSource {
 
-    suspend fun insertTrails(trails: List<TrailEntity>) = feedDao.insertTrails(trails)
+    suspend fun insertTrails(trails: List<TrailEntity>)
 
-    suspend fun deleteTrails(trails: List<String>) = feedDao.deleteTrails(trails)
+    suspend fun updateTrail(trail: TrailEntity)
 
-    suspend fun getSearchedTrails(trail: String) = feedDao.getSearchedTrails(trail)
+    suspend fun deleteTrails(trails: List<String>)
 
-    suspend fun getAllTrails() = feedDao.getAllTrails()
+    suspend fun getSearchedTrails(trail: String): List<TrailEntity>
+
+    suspend fun getFavoriteTrails(): List<TrailEntity>
+
+    suspend fun getAllTrails(): List<TrailEntity>
 }

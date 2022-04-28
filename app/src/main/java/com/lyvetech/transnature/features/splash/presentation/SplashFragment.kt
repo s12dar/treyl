@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.splash.ui
+package com.lyvetech.transnature.features.splash.presentation
 
 import android.os.Bundle
 import android.os.Handler

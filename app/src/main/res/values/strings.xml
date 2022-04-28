@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Transnature</string>
+    <string name="google_maps_api_key">AIzaSyDsh_60HIMuaeJ47AFrZfsZ3gUPzG-BbHk</string>
 
     <!-- Trail item -->
     <string name="desc_trail_img">Trail image</string>
+    <string name="desc_save_icon">Save icon</string>
 
     <!-- Splash fragment -->
     <string name="desc_splash_img">Welcome to Treyl</string>
@@ -10,9 +12,30 @@
     <!-- Feed fragment -->
     <string name="txt_home">Home</string>
 
+    <!-- Tracking fragment -->
+    <string name="title_starting_point">Starting point</string>
+    <string name="title_ending_point">Ending point</string>
+
+    <!-- Favorites Fragment-->
+    <string name="txt_fav">Favorites</string>
+
     <!-- bottom nav menu  -->
     <string name="title_menu_feed">Feed</string>
     <string name="title_menu_fav">Favorites</string>
     <string name="title_menu_history">History</string>
     <string name="title_menu_profile">Profile</string>
+
+    <!-- Feed info fragment -->
+    <string name="txt_distance_desc">Distanța de traseu</string>
+    <string name="txt_duration_desc">Durata până la finalizare</string>
+    <string name="txt_difficulty_desc">Nivel de dificultate</string>
+    <string name="txt_peak_point">Punctul de vârf</string>
+    <string name="txt_about_trail">Despre traseu</string>
+    <string name="txt_accession_trail">Acces</string>
+    <string name="txt_warnings_trail">Atenționări</string>
+    <string name="action_settings">Settings action</string>
+    <string name="action_favorite">Action favorite</string>
+    <string name="txt_trail_saved">Yaay! We added the trail to fav list</string>
+    <string name="txt_trail_removed">We removed the trail from fav list</string>
+
 </resources>

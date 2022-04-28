@@ -3,15 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/ic_arrow_back_24dp.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/ic_difficulty_20dp.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/ic_distance_20dp.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/ic_distance_24dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/ic_duration_20dp.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/ic_finish_20dp.xml" value="0.1255" />
         <entry key="app/src/main/res/drawable/ic_history_24dp.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/ic_home_24dp.xml" value="0.1455" />
+        <entry key="app/src/main/res/drawable/ic_location_20dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/ic_navigate_32dp.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/ic_peak_point_20dp.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/ic_play_24dp.xml" value="0.1235" />
         <entry key="app/src/main/res/drawable/ic_profile_24dp.xml" value="0.1455" />
+        <entry key="app/src/main/res/drawable/ic_save_24dp.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/ic_splash.xml" value="0.1245" />
+        <entry key="app/src/main/res/drawable/ic_start_20dp.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/ic_statistics_24dp.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/ic_wishlist_24dp.xml" value="0.1455" />
+        <entry key="app/src/main/res/drawable/indicator_active.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/indicator_inactive.xml" value="0.1255" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.11458333333333333" />
         <entry key="app/src/main/res/layout/fragment_feed.xml" value="0.2682291666666667" />
+        <entry key="app/src/main/res/layout/fragment_feed_info.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragment_tracking.xml" value="0.25052083333333336" />
         <entry key="app/src/main/res/layout/trail_item.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/vp_img_item.xml" value="0.240625" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.134375" />
+        <entry key="app/src/main/res/menu/menu_top_app_bar.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>

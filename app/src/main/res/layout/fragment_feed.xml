@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context=".features.feed.presentation.FeedFragment">
+    tools:context=".features.feed.presentation.main_feed.FeedFragment">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_8_horizontal"
+        android:id="@+id/gl_08_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -23,7 +23,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/txt_home"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_8_horizontal" />
+        app:layout_constraintTop_toBottomOf="@+id/gl_08_horizontal" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_trails"
@@ -33,5 +33,12 @@
         android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_header" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_9_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

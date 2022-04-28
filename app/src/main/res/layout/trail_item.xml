@@ -52,14 +52,12 @@
         tools:text="Sature bare" />
 
     <TextView
-        android:id="@+id/tv_subtitle"
+        android:id="@+id/tv_peak_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        tools:text="2.3 km away" />
+        tools:text="21000 M" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
