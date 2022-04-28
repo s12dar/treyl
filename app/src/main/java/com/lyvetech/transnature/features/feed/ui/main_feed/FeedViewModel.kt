@@ -1,16 +1,13 @@
-package com.lyvetech.transnature.features.feed.presentation.main_feed
+package com.lyvetech.transnature.features.feed.ui.main_feed
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lyvetech.transnature.core.util.Resource
 import com.lyvetech.transnature.core.util.asLiveData
-import com.lyvetech.transnature.features.feed.di.DefaultDispatcher
 import com.lyvetech.transnature.features.feed.domain.model.Trail
 import com.lyvetech.transnature.features.feed.domain.usecase.GetTrailsUseCaseImpl
-import com.lyvetech.transnature.features.feed.domain.usecase.UpdateTrailUseCaseImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

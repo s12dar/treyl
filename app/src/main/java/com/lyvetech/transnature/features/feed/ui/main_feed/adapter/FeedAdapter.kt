@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.presentation.favorites_feed.adapter
+package com.lyvetech.transnature.features.feed.ui.main_feed.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,11 +13,11 @@ import com.lyvetech.transnature.R
 import com.lyvetech.transnature.databinding.TrailItemBinding
 import com.lyvetech.transnature.features.feed.domain.model.Trail
 
-class FavoritesAdapter(
+class FeedAdapter(
     private val context: Context
-) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
+) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
 
-    inner class FavoritesViewHolder(private val binding: TrailItemBinding) :
+    inner class FeedViewHolder(private val binding: TrailItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private val title = binding.tvTitle
@@ -54,10 +54,10 @@ class FavoritesAdapter(
 
     val differ = AsyncListDiffer(this, differCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val binding = TrailItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return FavoritesViewHolder(binding)
+        return FeedViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -67,7 +67,7 @@ class FavoritesAdapter(
     private var onItemClickListener: ((Trail) -> Unit)? = null
     private var onSaveClickedListener: ((Trail) -> Unit)? = null
 
-    override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val trail = differ.currentList[position]
         holder.itemView.apply {
             holder.bind(trail)
@@ -75,6 +75,11 @@ class FavoritesAdapter(
                 onItemClickListener?.let { it(trail) }
             }
         }
+//        holder.itemView.findViewById<ImageView>(R.id.iv_save).apply {
+//            setOnClickListener {
+//                onSaveClickedListener?.let { it(trail) }
+//            }
+//        }
     }
 
     fun setOnItemClickListener(listener: (Trail) -> Unit) {

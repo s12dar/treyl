@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".features.feed.presentation.favorites_feed.FavoritesFragment">
+    tools:context=".features.feed.ui.favorites_feed.FavoritesFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_08_horizontal"

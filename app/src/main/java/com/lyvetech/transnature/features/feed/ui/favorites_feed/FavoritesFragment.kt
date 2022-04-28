@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.presentation.favorites_feed
+package com.lyvetech.transnature.features.feed.ui.favorites_feed
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFavoritesBinding
-import com.lyvetech.transnature.features.feed.presentation.favorites_feed.adapter.FavoritesAdapter
+import com.lyvetech.transnature.features.feed.ui.favorites_feed.adapter.FavoritesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

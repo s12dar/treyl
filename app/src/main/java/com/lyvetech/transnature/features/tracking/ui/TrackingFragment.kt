@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.tracking.presentation
+package com.lyvetech.transnature.features.tracking.ui
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

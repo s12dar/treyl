@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context=".features.feed.presentation.main_feed.FeedFragment">
+    tools:context=".features.feed.ui.main_feed.FeedFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_08_horizontal"

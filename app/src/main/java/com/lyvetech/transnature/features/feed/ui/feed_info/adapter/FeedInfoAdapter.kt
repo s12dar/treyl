@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.presentation.feed_info.adapter
+package com.lyvetech.transnature.features.feed.ui.feed_info.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,24 +1,26 @@
-package com.lyvetech.transnature.features.feed.presentation.feed_info
+package com.lyvetech.transnature.features.feed.ui.favorites_feed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lyvetech.transnature.features.feed.di.DefaultDispatcher
 import com.lyvetech.transnature.features.feed.domain.model.Trail
-import com.lyvetech.transnature.features.feed.domain.usecase.UpdateTrailUseCaseImpl
+import com.lyvetech.transnature.features.feed.domain.usecase.GetFavTrailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FeedInfoViewModel @Inject constructor(
-    private val updateTrailUseCase: UpdateTrailUseCaseImpl,
+class FavoritesViewModel @Inject constructor(
+    private val getFavTrailsUseCase: GetFavTrailsUseCase,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    fun updateTrail(trail: Trail) {
+    fun getFavTrails(): List<Trail> {
+        val favTrails = mutableListOf<Trail>()
         viewModelScope.launch(defaultDispatcher) {
-            updateTrailUseCase.invoke(trail)
+            favTrails.addAll(getFavTrailsUseCase.invoke())
         }
+        return favTrails
     }
 }

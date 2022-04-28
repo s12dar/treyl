@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.presentation.feed_info
+package com.lyvetech.transnature.features.feed.ui.feed_info
 
 import android.os.Bundle
 import android.util.Xml
@@ -22,7 +22,7 @@ import com.lyvetech.transnature.core.util.Constants.TAG_SCARITA
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFeedInfoBinding
 import com.lyvetech.transnature.features.feed.domain.model.Trail
-import com.lyvetech.transnature.features.feed.presentation.feed_info.adapter.FeedInfoAdapter
+import com.lyvetech.transnature.features.feed.ui.feed_info.adapter.FeedInfoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
