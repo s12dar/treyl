@@ -33,7 +33,32 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <!-- Main Button. -->
+    <style name="Buttons.MainAndDisabled" parent="Widget.MaterialComponents.Button">
+        <item name="android:padding">8dp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">false</item>
+        <item name="rippleColor">@color/baby_powder</item>
+        <item name="android:textColor">@color/baby_powder</item>
+        <item name="backgroundTint">@color/black_dinner</item>
+    </style>
+
+    <!-- Secondary Button. -->
+    <style name="Buttons.SecondaryNoDisabled" parent="Widget.MaterialComponents.Button">
+        <item name="android:padding">8sp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="elevation">2dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textStyle">bold</item>
+        <item name="rippleColor">@color/black_dinner</item>
+        <item name="backgroundTint">@color/color_secondary</item>
+    </style>
+
+
     <style name="Theme.Transnature.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-<!--    <style name="Theme.Transnature.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+    <style name="Theme.Transnature.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

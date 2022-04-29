@@ -37,8 +37,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-typealias Polyline = MutableList<LatLng>
-typealias Polylines = MutableList<Polyline>
+typealias myPolyline = MutableList<LatLng>
+typealias Polylines = MutableList<myPolyline>
 
 @AndroidEntryPoint
 class TrackingService : LifecycleService() {

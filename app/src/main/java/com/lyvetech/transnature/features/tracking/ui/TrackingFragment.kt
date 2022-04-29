@@ -1,5 +1,6 @@
 package com.lyvetech.transnature.features.tracking.ui
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Location
@@ -15,14 +16,25 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
+import com.google.android.material.snackbar.Snackbar
 import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants
+import com.lyvetech.transnature.core.util.Constants.ACTION_PAUSE_SERVICE
+import com.lyvetech.transnature.core.util.Constants.ACTION_START_OR_RESUME_SERVICE
+import com.lyvetech.transnature.core.util.Constants.ACTION_STOP_SERVICE
 import com.lyvetech.transnature.core.util.Constants.POLYLINE_COLOR
 import com.lyvetech.transnature.core.util.Constants.POLYLINE_WIDTH
+import com.lyvetech.transnature.core.util.LocationUtils
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentTrackingBinding
 import com.lyvetech.transnature.features.feed.domain.model.Trail
+import com.lyvetech.transnature.features.tracking.domain.service.TrackingService
+import com.lyvetech.transnature.features.tracking.domain.service.myPolyline
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import kotlin.math.round
 
+@AndroidEntryPoint
 class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener {
 
@@ -31,6 +43,10 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
     private lateinit var currentTrail: Trail
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var pathPoints = mutableListOf<LatLng>()
+
+    private var currTimeMillis = 0L
+    private var mIsTracking = false
+    private var mPathPoints = mutableListOf<myPolyline>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +71,8 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         manageBindingViews()
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
+
+        subscribeToObservers()
     }
 
     override fun onResume() {
@@ -103,6 +121,23 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             fabRoute.setOnClickListener {
                 zoomToSeePolyline()
             }
+
+            fabStart.setOnClickListener {
+                startOrResumeSession()
+            }
+
+            btnFinish.setOnClickListener {
+                endSessionAndSaveToDb()
+            }
+
+            btnPause.setOnClickListener {
+                if (!mIsTracking) {
+                    startOrResumeSession()
+                } else {
+                    pauseSession()
+                }
+            }
+
         }
     }
 
@@ -122,7 +157,7 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         )
     }
 
-    private fun addAllPolylines() {
+    private fun addTrailPolylines() {
         addPathPoints()
         val polylineOptions = PolylineOptions()
             .color(POLYLINE_COLOR)
@@ -179,9 +214,120 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             setOnMyLocationButtonClickListener(this@TrackingFragment)
             setOnMyLocationClickListener(this@TrackingFragment)
         }
-        addAllPolylines()
+        addTrailPolylines()
+        addUserPolylines()
         addStartAndEndMarkers()
         zoomToSeePolyline()
+    }
+
+    private fun sendCommandToTrackingService(sendAction: String) =
+        Intent(requireContext(), TrackingService::class.java).also {
+            it.action = sendAction
+            requireContext().startService(it)
+        }
+
+    private fun startOrResumeSession() {
+        with(binding) {
+            fabStart.visibility = View.INVISIBLE
+            btnFinish.visibility = View.VISIBLE
+            btnPause.visibility = View.VISIBLE
+        }
+
+        if (!mIsTracking) {
+            sendCommandToTrackingService(ACTION_START_OR_RESUME_SERVICE)
+        }
+    }
+
+    private fun pauseSession() {
+        sendCommandToTrackingService(ACTION_PAUSE_SERVICE)
+    }
+
+    private fun stopSession() {
+        sendCommandToTrackingService(ACTION_STOP_SERVICE)
+    }
+
+    private fun updateTracking(isTracking: Boolean) {
+        mIsTracking = isTracking
+        if (!isTracking) {
+            with(binding) {
+                btnPause.text = getString(R.string.btn_resume)
+                btnFinish.visibility = View.VISIBLE
+            }
+        } else {
+            with(binding) {
+                btnPause.text = getString(R.string.btn_pause)
+            }
+        }
+    }
+
+    private fun endSessionAndSaveToDb() {
+        map?.snapshot {
+            var distanceInMeters = 0
+            for (polyline in mPathPoints) {
+                distanceInMeters += LocationUtils.calculatePolylineLength(polyline).toInt()
+            }
+            val averageSpeed =
+                round((distanceInMeters / 1000f) / (currTimeMillis / 1000f / 60 / 60) * 10) / 10f
+            val dateTimestamp = Calendar.getInstance().timeInMillis
+//            val caloriesBurned = ((distanceInMeters / 1000f) * mWeight).toInt()
+//            val run = Run(
+//                it,
+//                dateTimestamp,
+//                averageSpeed,
+//                distanceInMeters,
+//                currTimeMillis,
+//                caloriesBurned
+//            )
+//            viewModel.insertRun(run)
+            Snackbar.make(
+                requireView(),
+                R.string.txt_trail_saved,
+                Snackbar.LENGTH_SHORT
+            ).show()
+            stopSession()
+        }
+    }
+
+    private fun addUserPolylines() {
+        for (polyline in mPathPoints) {
+            val polylineOptions = PolylineOptions()
+                .color(POLYLINE_COLOR)
+                .width(POLYLINE_WIDTH)
+                .addAll(polyline)
+            map?.addPolyline(polylineOptions)
+        }
+    }
+
+    private fun subscribeToObservers() {
+        TrackingService.isTracking.observe(viewLifecycleOwner) {
+            updateTracking(it)
+        }
+
+        TrackingService.pathPoints.observe(viewLifecycleOwner) {
+            mPathPoints = it
+            addLatestUserPolyline()
+        }
+
+        TrackingService.timeRunInMillis.observe(viewLifecycleOwner) {
+            currTimeMillis = it
+            val formattedTime = LocationUtils.getFormattedStopWatchTime(currTimeMillis, true)
+            binding.tvTimer.text = formattedTime
+        }
+    }
+
+    private fun addLatestUserPolyline() {
+        if (mPathPoints.isNotEmpty() && mPathPoints.last().size > 1) {
+            val preLastLatLng =
+                mPathPoints.last()[mPathPoints.last().size - 2] // second last element of last polyline in mPathPoints list
+            val lastLatLng =
+                mPathPoints.last().last() // last element of polyline in mPathPoints list
+            val polylineOptions = PolylineOptions()
+                .color(POLYLINE_COLOR)
+                .width(POLYLINE_WIDTH)
+                .add(preLastLatLng)
+                .add(lastLatLng)
+            map?.addPolyline(polylineOptions)
+        }
     }
 
     override fun onMyLocationButtonClick(): Boolean {

@@ -31,18 +31,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/txt_timer"
+        android:textSize="@dimen/title_twenty_four"
+        app:layout_constraintBottom_toTopOf="@+id/fab_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_navigate"
+        android:id="@+id/fab_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:visibility="visible"
         android:backgroundTint="@color/color_secondary"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_play_24dp"
         app:borderWidth="0dp"
+        app:fabSize="mini"
         app:elevation="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_pause"
+        style="@style/Buttons.SecondaryNoDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_pause"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/fab_start"
+        app:layout_constraintTop_toTopOf="@id/fab_start" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_finish"
+        style="@style/Buttons.SecondaryNoDisabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_finish"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/fab_start"
+        app:layout_constraintTop_toTopOf="@id/fab_start" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
