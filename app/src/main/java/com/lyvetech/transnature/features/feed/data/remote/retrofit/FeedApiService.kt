@@ -16,6 +16,6 @@ interface FeedApiService {
     suspend fun getAllTrails(): Response<List<TrailDto>>
 
     companion object {
-        const val BASE_URL = "https://secure-depths-19350.herokuapp.com"
+        const val BASE_URL = "https://aqueous-basin-19635.herokuapp.com/"
     }
 }
