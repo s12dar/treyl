@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,16 +29,19 @@ import com.lyvetech.transnature.core.util.LocationUtils
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentTrackingBinding
 import com.lyvetech.transnature.features.feed.domain.model.Trail
+import com.lyvetech.transnature.features.tracking.domain.model.Session
 import com.lyvetech.transnature.features.tracking.domain.service.TrackingService
 import com.lyvetech.transnature.features.tracking.domain.service.myPolyline
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 import kotlin.math.round
 
 @AndroidEntryPoint
 class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener {
 
+    private val viewModel: TrackingViewModel by viewModels()
     private lateinit var binding: FragmentTrackingBinding
     private var map: GoogleMap? = null
     private lateinit var currentTrail: Trail
@@ -47,6 +51,10 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
     private var currTimeMillis = 0L
     private var mIsTracking = false
     private var mPathPoints = mutableListOf<myPolyline>()
+
+    @set:Inject
+    var mWeight = 89f
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -243,6 +251,11 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
     }
 
     private fun stopSession() {
+        with(binding) {
+            btnPause.visibility = View.INVISIBLE
+            btnFinish.visibility = View.INVISIBLE
+            fabStart.visibility = View.VISIBLE
+        }
         sendCommandToTrackingService(ACTION_STOP_SERVICE)
     }
 
@@ -251,7 +264,6 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         if (!isTracking) {
             with(binding) {
                 btnPause.text = getString(R.string.btn_resume)
-                btnFinish.visibility = View.VISIBLE
             }
         } else {
             with(binding) {
@@ -269,16 +281,15 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             val averageSpeed =
                 round((distanceInMeters / 1000f) / (currTimeMillis / 1000f / 60 / 60) * 10) / 10f
             val dateTimestamp = Calendar.getInstance().timeInMillis
-//            val caloriesBurned = ((distanceInMeters / 1000f) * mWeight).toInt()
-//            val run = Run(
-//                it,
-//                dateTimestamp,
-//                averageSpeed,
-//                distanceInMeters,
-//                currTimeMillis,
-//                caloriesBurned
-//            )
-//            viewModel.insertRun(run)
+            val caloriesBurned = ((distanceInMeters / 1000f) * mWeight).toInt()
+            val session = Session(
+                dateTimestamp,
+                averageSpeed,
+                distanceInMeters,
+                currTimeMillis,
+                caloriesBurned
+            )
+            viewModel.insertSession(session)
             Snackbar.make(
                 requireView(),
                 R.string.txt_trail_saved,

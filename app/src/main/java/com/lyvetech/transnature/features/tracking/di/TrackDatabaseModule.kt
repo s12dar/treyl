@@ -1,7 +1,7 @@
-package com.lyvetech.transnature.features.feed.di
+package com.lyvetech.transnature.features.tracking.di
 
 import com.lyvetech.transnature.core.data.local.TransNatureDatabase
-import com.lyvetech.transnature.features.feed.data.local.dao.FeedDao
+import com.lyvetech.transnature.features.tracking.data.local.dao.TrackDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,11 +10,11 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object DatabaseModule {
+object TrackDatabaseModule {
 
     @Singleton
     @Provides
-    fun provideTransNatureDao(
+    fun provideTrackDao(
         transNatureDatabase: TransNatureDatabase
-    ): FeedDao = transNatureDatabase.dao
+    ): TrackDao = transNatureDatabase.trackDao
 }

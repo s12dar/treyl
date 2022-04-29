@@ -1,7 +1,7 @@
 package com.lyvetech.transnature.features.feed.domain.usecase
 
+import com.lyvetech.transnature.core.di.IoDispatcher
 import com.lyvetech.transnature.features.feed.data.repository.FeedRepository
-import com.lyvetech.transnature.features.feed.di.IoDispatcher
 import com.lyvetech.transnature.features.feed.domain.model.Trail
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

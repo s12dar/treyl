@@ -1,9 +1,9 @@
 package com.lyvetech.transnature.features.feed.data.repository
 
+import com.lyvetech.transnature.core.di.IoDispatcher
 import com.lyvetech.transnature.core.util.Resource
 import com.lyvetech.transnature.features.feed.data.local.FeedLocalDataSource
 import com.lyvetech.transnature.features.feed.data.remote.FeedRemoteDataSource
-import com.lyvetech.transnature.features.feed.di.IoDispatcher
 import com.lyvetech.transnature.features.feed.domain.model.Trail
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

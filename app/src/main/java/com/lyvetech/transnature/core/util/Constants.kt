@@ -39,4 +39,12 @@ object Constants {
     const val TAG_CARAS = "tag_caras"
     const val TAG_CASCADA = "tag_cascada"
     const val TAG_LOREM = "tag_lorem"
+
+    /**
+     * Shared pref
+     */
+    const val SHARED_PREFERENCES_NAME = "sharedPref"
+    const val KEY_FIRST_TIME_TOGGLE = "KEY_FIRST_TIME_TOGGLE"
+    const val KEY_NAME = "KEY_NAME"
+    const val KEY_WEIGHT = "KEY_WEIGHT"
 }

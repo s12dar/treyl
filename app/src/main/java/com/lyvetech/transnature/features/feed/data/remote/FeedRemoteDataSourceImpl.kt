@@ -1,9 +1,9 @@
 package com.lyvetech.transnature.features.feed.data.remote
 
+import com.lyvetech.transnature.core.di.IoDispatcher
 import com.lyvetech.transnature.core.util.Resource
 import com.lyvetech.transnature.features.feed.data.remote.dto.TrailDto
 import com.lyvetech.transnature.features.feed.data.remote.retrofit.FeedApiService
-import com.lyvetech.transnature.features.feed.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

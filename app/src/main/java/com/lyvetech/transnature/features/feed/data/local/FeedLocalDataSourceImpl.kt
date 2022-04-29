@@ -1,8 +1,8 @@
 package com.lyvetech.transnature.features.feed.data.local
 
+import com.lyvetech.transnature.core.di.IoDispatcher
 import com.lyvetech.transnature.features.feed.data.local.dao.FeedDao
 import com.lyvetech.transnature.features.feed.data.local.entity.TrailEntity
-import com.lyvetech.transnature.features.feed.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -16,11 +16,11 @@ class FeedLocalDataSourceImpl @Inject constructor(
             feedDao.insertTrails(trails = trails)
         }
 
-    override suspend fun updateTrail(trail: TrailEntity) {
+    override suspend fun updateTrail(trail: TrailEntity) =
         withContext(ioDispatcher) {
             feedDao.updateTrail(trail = trail)
+
         }
-    }
 
     override suspend fun deleteTrails(trails: List<String>) =
         withContext(ioDispatcher) {

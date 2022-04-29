@@ -8,7 +8,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class UseCaseModule {
+abstract class FeedUseCaseModule {
 
     @Binds
     abstract fun bindTrailsUseCaseImpl(

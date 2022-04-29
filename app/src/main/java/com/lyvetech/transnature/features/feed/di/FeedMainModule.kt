@@ -8,7 +8,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object MainModule {
+object FeedMainModule {
 
     @Provides
     fun provideBundle(

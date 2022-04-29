@@ -11,7 +11,7 @@ import dagger.hilt.components.SingletonComponent
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class DataSourcesModule {
+abstract class FeedDataSourcesModule {
 
     @Binds
     abstract fun bindLocalDataSource(localDataSourceImpl: FeedLocalDataSourceImpl): FeedLocalDataSource
