@@ -1,24 +1,26 @@
-package com.lyvetech.transnature.features.tracking.ui
+package com.lyvetech.transnature.features.tracking.ui.tracking_info
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lyvetech.transnature.core.di.DefaultDispatcher
 import com.lyvetech.transnature.features.tracking.domain.model.Session
-import com.lyvetech.transnature.features.tracking.domain.usecase.InsertSessionUseCaseImpl
+import com.lyvetech.transnature.features.tracking.domain.usecase.GetSessionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TrackingViewModel @Inject constructor(
-    private val insertSessionUseCase: InsertSessionUseCaseImpl,
+class TrackingInfoViewModel @Inject constructor(
+    private val getSessionsUseCase: GetSessionsUseCase,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    fun insertSession(session: Session) {
+    fun getSessions(): List<Session> {
+        val sessions = mutableListOf<Session>()
         viewModelScope.launch(defaultDispatcher) {
-            insertSessionUseCase.invoke(session)
+            sessions.addAll(getSessionsUseCase.invoke())
         }
+        return sessions
     }
 }

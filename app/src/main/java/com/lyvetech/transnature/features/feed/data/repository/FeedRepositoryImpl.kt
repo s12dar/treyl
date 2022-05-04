@@ -39,8 +39,8 @@ class FeedRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun getFavTrails(): List<Trail> {
-        return localDataSource.getFavoriteTrails().map { it.toTrail() }
+    override suspend fun getFavTrails(): List<Trail> = withContext(ioDispatcher) {
+        localDataSource.getFavoriteTrails().map { it.toTrail() }
     }
 
     override suspend fun updateTrail(trail: Trail) = withContext(ioDispatcher) {

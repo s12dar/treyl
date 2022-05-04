@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.tracking.ui
+package com.lyvetech.transnature.features.tracking.ui.tracking
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -25,6 +25,7 @@ import com.lyvetech.transnature.core.util.Constants.ACTION_START_OR_RESUME_SERVI
 import com.lyvetech.transnature.core.util.Constants.ACTION_STOP_SERVICE
 import com.lyvetech.transnature.core.util.Constants.POLYLINE_COLOR
 import com.lyvetech.transnature.core.util.Constants.POLYLINE_WIDTH
+import com.lyvetech.transnature.core.util.Constants.USER_POLYLINE_COLOR
 import com.lyvetech.transnature.core.util.LocationUtils
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentTrackingBinding
@@ -283,6 +284,7 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             val dateTimestamp = Calendar.getInstance().timeInMillis
             val caloriesBurned = ((distanceInMeters / 1000f) * mWeight).toInt()
             val session = Session(
+                "Session ${currentTrail.name}",
                 dateTimestamp,
                 averageSpeed,
                 distanceInMeters,
@@ -292,7 +294,7 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             viewModel.insertSession(session)
             Snackbar.make(
                 requireView(),
-                R.string.txt_trail_saved,
+                R.string.txt_session_saved,
                 Snackbar.LENGTH_SHORT
             ).show()
             stopSession()
@@ -302,7 +304,7 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
     private fun addUserPolylines() {
         for (polyline in mPathPoints) {
             val polylineOptions = PolylineOptions()
-                .color(POLYLINE_COLOR)
+                .color(USER_POLYLINE_COLOR)
                 .width(POLYLINE_WIDTH)
                 .addAll(polyline)
             map?.addPolyline(polylineOptions)

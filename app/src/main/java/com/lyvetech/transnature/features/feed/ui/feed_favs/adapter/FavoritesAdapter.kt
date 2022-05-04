@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.ui.favorites_feed.adapter
+package com.lyvetech.transnature.features.feed.ui.feed_favs.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context

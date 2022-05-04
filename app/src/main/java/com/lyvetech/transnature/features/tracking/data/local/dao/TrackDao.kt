@@ -1,9 +1,6 @@
 package com.lyvetech.transnature.features.tracking.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.room.*
 import com.lyvetech.transnature.features.tracking.data.local.entity.SessionEntity
 
 @Dao
@@ -14,4 +11,7 @@ interface TrackDao {
 
     @Delete
     fun deleteSession(sessionEntity: SessionEntity)
+
+    @Query("SELECT * FROM session_table")
+    suspend fun getAllSessions(): List<SessionEntity>
 }

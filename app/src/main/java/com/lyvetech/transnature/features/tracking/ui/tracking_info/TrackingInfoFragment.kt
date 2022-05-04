@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.ui.favorites_feed
+package com.lyvetech.transnature.features.tracking.ui.tracking_info
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,26 +7,21 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants
 import com.lyvetech.transnature.core.util.OnboardingUtils
-import com.lyvetech.transnature.databinding.FragmentFavoritesBinding
-import com.lyvetech.transnature.features.feed.ui.favorites_feed.adapter.FavoritesAdapter
+import com.lyvetech.transnature.databinding.FragmentTrackingInfoBinding
+import com.lyvetech.transnature.features.tracking.ui.tracking_info.adapter.TrackingInfoAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavoritesFragment : Fragment() {
+class TrackingInfoFragment : Fragment() {
 
-    private lateinit var binding: FragmentFavoritesBinding
-    private val viewModel: FavoritesViewModel by viewModels()
-    private lateinit var favAdapter: FavoritesAdapter
-
-    @Inject
-    lateinit var bundle: Bundle
+    private lateinit var binding: FragmentTrackingInfoBinding
+    private val viewModel: TrackingInfoViewModel by viewModels()
+    private lateinit var trackingInfoAdapter: TrackingInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +32,7 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        binding = FragmentTrackingInfoBinding.inflate(inflater, container, false)
         (activity as OnboardingUtils).hideTopAppBar()
         (activity as OnboardingUtils).showBottomNav()
         setRecyclerView()
@@ -46,8 +41,8 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getFavTrails()
-        manageTrailClicked()
+        getSessions()
+
     }
 
     private var isError = false
@@ -59,7 +54,7 @@ class FavoritesFragment : Fragment() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
-            val layoutManager = recyclerView.layoutManager as GridLayoutManager
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
@@ -86,25 +81,16 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        favAdapter = FavoritesAdapter(requireContext())
-        binding.rvTrails.apply {
-            adapter = favAdapter
-            layoutManager = GridLayoutManager(context, 2)
-            addOnScrollListener(this@FavoritesFragment.scrollListener)
+        trackingInfoAdapter = TrackingInfoAdapter(requireContext())
+        binding.rvSessions.apply {
+            adapter = trackingInfoAdapter
+            layoutManager = LinearLayoutManager(context)
+            addOnScrollListener(this@TrackingInfoFragment.scrollListener)
         }
     }
 
-    private fun getFavTrails() {
-        val trails = viewModel.getFavTrails()
-        favAdapter.differ.submitList(trails)
-    }
-
-    private fun manageTrailClicked() {
-        favAdapter.setOnItemClickListener {
-            bundle.apply {
-                putSerializable(Constants.BUNDLE_TRAIL_KEY, it)
-            }
-            findNavController().navigate(R.id.action_favoritesFragment_to_feedInfoFragment, bundle)
-        }
+    private fun getSessions() {
+        val trails = viewModel.getSessions()
+        trackingInfoAdapter.differ.submitList(trails)
     }
 }

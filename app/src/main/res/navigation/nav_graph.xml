@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.lyvetech.transnature.features.feed.ui.main_feed.FeedFragment"
+        android:name="com.lyvetech.transnature.features.feed.ui.feed.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed">
         <action
@@ -44,12 +44,12 @@
     </fragment>
     <fragment
         android:id="@+id/trackingFragment"
-        android:name="com.lyvetech.transnature.features.tracking.ui.TrackingFragment"
+        android:name="com.lyvetech.transnature.features.tracking.ui.tracking.TrackingFragment"
         android:label="fragment_tracking"
         tools:layout="@layout/fragment_tracking" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.lyvetech.transnature.features.feed.ui.favorites_feed.FavoritesFragment"
+        android:name="com.lyvetech.transnature.features.feed.ui.feed_favs.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites">
         <action
@@ -60,4 +60,9 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
     </fragment>
+    <fragment
+        android:id="@+id/trackingInfoFragment"
+        android:name="com.lyvetech.transnature.features.tracking.ui.tracking_info.TrackingInfoFragment"
+        android:label="fragment_tracking_info"
+        tools:layout="@layout/fragment_tracking_info" />
 </navigation>

@@ -11,10 +11,10 @@
         android:icon="@drawable/ic_save_24dp"
         android:title="@string/title_menu_fav" />
     <item
-        android:id="@+id/pingFragment"
+        android:id="@+id/trackingInfoFragment"
         android:enabled="true"
         android:icon="@drawable/ic_statistics_24dp"
-        android:title="@string/title_menu_history" />
+        android:title="@string/title_menu_insights" />
     <item
         android:id="@+id/profileFragment"
         android:enabled="true"

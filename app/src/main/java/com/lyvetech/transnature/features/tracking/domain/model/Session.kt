@@ -3,6 +3,7 @@ package com.lyvetech.transnature.features.tracking.domain.model
 import com.lyvetech.transnature.features.tracking.data.local.entity.SessionEntity
 
 data class Session(
+    var title: String = "",
     var timestamp: Long = 0L,
     var averageSpeed: Float = 0f,
     var distanceInMeters: Int = 0,
@@ -11,6 +12,7 @@ data class Session(
     val id: Int? = null
 ) {
     fun toSessionEntity() = SessionEntity(
+        title,
         timestamp,
         averageSpeed,
         distanceInMeters,

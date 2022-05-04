@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.ui.favorites_feed
+package com.lyvetech.transnature.features.feed.ui.feed_favs
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

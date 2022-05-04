@@ -30,6 +30,8 @@
         <entry key="app/src/main/res/layout/fragment_feed_info.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_tracking.xml" value="0.25052083333333336" />
+        <entry key="app/src/main/res/layout/fragment_tracking_info.xml" value="0.15501519756838905" />
+        <entry key="app/src/main/res/layout/tracking_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/trail_item.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/vp_img_item.xml" value="0.240625" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.134375" />

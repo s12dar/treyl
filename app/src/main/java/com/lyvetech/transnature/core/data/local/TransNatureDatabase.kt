@@ -11,7 +11,7 @@ import com.lyvetech.transnature.features.tracking.data.local.entity.SessionEntit
 
 @Database(
     entities = [TrailEntity::class, SessionEntity::class],
-    version = 9,
+    version = 10,
     exportSchema = false
 )
 @TypeConverters(

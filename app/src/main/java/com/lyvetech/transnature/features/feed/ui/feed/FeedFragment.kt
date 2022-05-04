@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.ui.main_feed
+package com.lyvetech.transnature.features.feed.ui.feed
 
 import android.Manifest
 import android.os.Build
@@ -19,7 +19,7 @@ import com.lyvetech.transnature.core.util.Constants.REQUEST_LOCATION_PERMISSION
 import com.lyvetech.transnature.core.util.LocationUtils
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentFeedBinding
-import com.lyvetech.transnature.features.feed.ui.main_feed.adapter.FeedAdapter
+import com.lyvetech.transnature.features.feed.ui.feed.adapter.FeedAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions

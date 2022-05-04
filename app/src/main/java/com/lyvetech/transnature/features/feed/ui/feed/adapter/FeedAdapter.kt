@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.ui.main_feed.adapter
+package com.lyvetech.transnature.features.feed.ui.feed.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -79,9 +79,5 @@ class FeedAdapter(
 
     fun setOnItemClickListener(listener: (Trail) -> Unit) {
         onItemClickListener = listener
-    }
-
-    fun setOnSaveClickListener(listener: (Trail) -> Unit) {
-        onSaveClickedListener = listener
     }
 }

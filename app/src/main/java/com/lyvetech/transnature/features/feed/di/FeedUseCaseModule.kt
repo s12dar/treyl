@@ -11,17 +11,17 @@ import dagger.hilt.components.SingletonComponent
 abstract class FeedUseCaseModule {
 
     @Binds
-    abstract fun bindTrailsUseCaseImpl(
+    abstract fun bindTrailsUseCase(
         getTrailsUseCaseImpl: GetTrailsUseCaseImpl
     ): GetTrailsUseCase
 
     @Binds
-    abstract fun bindSearchedTrailsUseCaseImpl(
+    abstract fun bindSearchedTrailsUseCase(
         getSearchedUseCaseImpl: GetSearchedTrailsUseCaseImpl
     ): GetSearchedTrailsUseCase
 
     @Binds
-    abstract fun bindGetFavTrailsUseCaseImpl(
+    abstract fun bindFavTrailsUseCase(
         getFavUseCaseImpl: GetFavTrailsUseCaseImpl
     ): GetFavTrailsUseCase
 

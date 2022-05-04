@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.ui.main_feed
+package com.lyvetech.transnature.features.feed.ui.feed
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
