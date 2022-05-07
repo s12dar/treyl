@@ -35,7 +35,7 @@
 
     <!-- Main Button. -->
     <style name="Buttons.MainAndDisabled" parent="Widget.MaterialComponents.Button">
-        <item name="android:padding">8dp</item>
+        <item name="android:padding">12dp</item>
         <item name="cornerRadius">10dp</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textStyle">bold</item>
@@ -61,4 +61,15 @@
     <style name="Theme.Transnature.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Transnature.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Chip filter -->
+    <style name="ThemeOverlay.MyApp.Chip.Choice" parent="">
+        <item name="elevationOverlayEnabled">true</item>
+    </style>
+
+    <style name="Widget.MyApp.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_color</item>
+        <item name="android:textColor">@color/black_dinner</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
+    </style>
 </resources>

@@ -11,11 +11,15 @@ import androidx.navigation.fragment.findNavController
 import com.lyvetech.transnature.R
 import com.lyvetech.transnature.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
+
+    @set:Inject
+    var isAppOpenedFirst = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +45,12 @@ class SplashFragment : Fragment() {
         if (isDetached || isRemoving || activity == null) {
             return
         }
-        findNavController().navigate(R.id.action_splashFragment_to_feedFragment)
+
+        if (isAppOpenedFirst) {
+            findNavController().navigate(R.id.action_splashFragment_to_onboardingFragment)
+        } else {
+            findNavController().navigate(R.id.action_splashFragment_to_feedFragment)
+
+        }
     }
 }

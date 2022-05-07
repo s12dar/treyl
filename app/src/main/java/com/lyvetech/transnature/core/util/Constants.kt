@@ -19,13 +19,13 @@ object Constants {
      */
     const val REQUEST_LOCATION_PERMISSION = 0
     const val MAP_ZOOM = 18f
-    const val ACTION_START_OR_RESUME_SERVICE = "ACTION_START_OR_RESUME_SERVICE"
-    const val ACTION_PAUSE_SERVICE = "ACTION_PAUSE_SERVICE"
-    const val ACTION_STOP_SERVICE = "ACTION_STOP_SERVICE"
+    const val ACTION_START_OR_RESUME_SERVICE = "action_start_or_resume_service"
+    const val ACTION_PAUSE_SERVICE = "action_pause_service"
+    const val ACTION_STOP_SERVICE = "action_stop_service"
     const val NOTIFICATION_CHANNEL_ID = "tracking_channel"
     const val NOTIFICATION_CHANNEL_NAME = "Tracking"
     const val NOTIFICATION_ID = 1
-    const val ACTION_SHOW_TRACKING_FRAGMENT = "ACTION_SHOW_TRACKING_FRAGMENT"
+    const val ACTION_SHOW_TRACKING_FRAGMENT = "action_show_tracking_fragment"
     const val LOCATION_UPDATE_INTERVAL = 5000L
     const val FASTEST_LOCATION_INTERVAL = 2000L
     const val POLYLINE_COLOR = Color.BLACK
@@ -45,7 +45,8 @@ object Constants {
      * Shared pref
      */
     const val SHARED_PREFERENCES_NAME = "sharedPref"
-    const val KEY_FIRST_TIME_TOGGLE = "KEY_FIRST_TIME_TOGGLE"
-    const val KEY_NAME = "KEY_NAME"
-    const val KEY_WEIGHT = "KEY_WEIGHT"
+    const val KEY_FIRST_TIME_TOGGLE = "key_first_time_toggle"
+    const val KEY_NAME = "key_name"
+    const val KEY_WEIGHT = "key_weight"
+    const val KEY_HEIGHT = "key_height"
 }
