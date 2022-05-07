@@ -62,7 +62,6 @@ class FeedInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         managePassedArguments(arguments)
         subscribeUI()
-        manageBindingViews()
         setUpImgViewPager()
     }
 
@@ -78,14 +77,29 @@ class FeedInfoFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_favorite -> {
-                manageActionButtonSelection(item)
+                manageFavActionButtonSelection(item)
+                true
+            }
+            R.id.action_navigate -> {
+                manageNavActionButtonSelection()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun manageActionButtonSelection(item: MenuItem) {
+    private fun manageNavActionButtonSelection() {
+        currentTrail.route = getConvertedGpx()
+        bundle.apply {
+            putSerializable(BUNDLE_ROUTE_KEY, currentTrail)
+        }
+        findNavController().navigate(
+            R.id.action_feedInfoFragment_to_trackingFragment,
+            bundle
+        )
+    }
+
+    private fun manageFavActionButtonSelection(item: MenuItem) {
         if (!currentTrail.isFav) {
             currentTrail.isFav = true
             viewModel.updateTrail(currentTrail)
@@ -186,22 +200,6 @@ class FeedInfoFragment : Fragment() {
                         requireContext().applicationContext,
                         R.drawable.indicator_inactive
                     )
-                )
-            }
-        }
-    }
-
-    private fun manageBindingViews() {
-        currentTrail.route = getConvertedGpx()
-        bundle.apply {
-            putSerializable(BUNDLE_ROUTE_KEY, currentTrail)
-        }
-
-        with(binding) {
-            fabNavigate.setOnClickListener {
-                findNavController().navigate(
-                    R.id.action_feedInfoFragment_to_trackingFragment,
-                    bundle
                 )
             }
         }
