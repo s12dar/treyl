@@ -76,6 +76,7 @@ class OnboardingFragment : Fragment() {
             .putFloat(KEY_HEIGHT, weight.toFloat())
             .putBoolean(KEY_FIRST_TIME_TOGGLE, false)
             .apply()
+
         return true
     }
 }
