@@ -3,6 +3,7 @@ package com.lyvetech.transnature.core.util
 import android.graphics.Color
 
 object Constants {
+
     /**
      * Pagination
      */
