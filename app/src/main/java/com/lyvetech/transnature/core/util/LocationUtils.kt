@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object LocationUtils {
     fun hasLocationPermissions(context: Context) =
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             EasyPermissions.hasPermissions(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION,
