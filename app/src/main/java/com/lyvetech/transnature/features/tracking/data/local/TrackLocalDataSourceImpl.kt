@@ -21,6 +21,12 @@ class TrackLocalDataSourceImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun deleteAllSessions() {
+        withContext(ioDispatcher) {
+            trackDao.deleteAllSessions()
+        }
+    }
+
     override suspend fun getAllSessions(): List<SessionEntity> =
         withContext(ioDispatcher) {
             return@withContext trackDao.getAllSessions()

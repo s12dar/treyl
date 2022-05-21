@@ -19,4 +19,8 @@ class TrackRepositoryImpl @Inject constructor(
     override suspend fun getAllSessions(): List<Session> = withContext(ioDispatcher) {
         localDataSource.getAllSessions().map { it.toSession() }
     }
+
+    override suspend fun deleteAllSessions() {
+        localDataSource.deleteAllSessions()
+    }
 }

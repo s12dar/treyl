@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lyvetech.transnature.core.util.Constants
@@ -42,6 +41,7 @@ class TrackingInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getSessions()
+        manageBindingViews()
     }
 
     private var isError = false
@@ -91,5 +91,16 @@ class TrackingInfoFragment : Fragment() {
     private fun getSessions() {
         val trails = viewModel.getSessions()
         trackingInfoAdapter.differ.submitList(trails)
+    }
+
+    private fun manageBindingViews() {
+        with(binding) {
+            fabReset.setOnClickListener { resetTrails() }
+        }
+    }
+
+    private fun resetTrails() {
+        viewModel.deleteAllSessions()
+        setRecyclerView()
     }
 }

@@ -7,10 +7,13 @@ import com.lyvetech.transnature.features.tracking.data.local.entity.SessionEntit
 interface TrackDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSession(sessionEntity: SessionEntity)
+    suspend fun insertSession(sessionEntity: SessionEntity)
 
     @Delete
-    fun deleteSession(sessionEntity: SessionEntity)
+    suspend fun deleteSession(sessionEntity: SessionEntity)
+
+    @Query("DELETE FROM session_table")
+    suspend fun deleteAllSessions()
 
     @Query("SELECT * FROM session_table")
     suspend fun getAllSessions(): List<SessionEntity>

@@ -1,9 +1,6 @@
 package com.lyvetech.transnature.features.tracking.di
 
-import com.lyvetech.transnature.features.tracking.domain.usecase.GetSessionsUseCase
-import com.lyvetech.transnature.features.tracking.domain.usecase.GetSessionsUseCaseImpl
-import com.lyvetech.transnature.features.tracking.domain.usecase.InsertSessionUseCase
-import com.lyvetech.transnature.features.tracking.domain.usecase.InsertSessionUseCaseImpl
+import com.lyvetech.transnature.features.tracking.domain.usecase.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,4 +19,9 @@ abstract class TrackUseCaseModule {
     abstract fun bindGetSessionsCase(
         getSessionsUseCase: GetSessionsUseCaseImpl
     ): GetSessionsUseCase
+
+    @Binds
+    abstract fun bindDeleteAllSessionsUseCase(
+        deleteAllSessionsUseCase: DeleteAllSessionsUseCaseImpl
+    ): DeleteAllSessionsUseCase
 }

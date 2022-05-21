@@ -7,4 +7,6 @@ interface TrackRepository {
     suspend fun insertSession(session: Session)
 
     suspend fun getAllSessions(): List<Session>
+
+    suspend fun deleteAllSessions()
 }
