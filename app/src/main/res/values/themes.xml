@@ -61,4 +61,20 @@
     <style name="Theme.Transnature.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Transnature.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Alert dialog -->
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Alert.Button.Negative</item>
+    </style>
+
+    <style name="Alert.Button.Positive" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/black_dinner</item>
+        <item name="rippleColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Alert.Button.Negative" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/black_dinner</item>
+        <item name="rippleColor">@color/colorPrimary</item>
+    </style>
 </resources>

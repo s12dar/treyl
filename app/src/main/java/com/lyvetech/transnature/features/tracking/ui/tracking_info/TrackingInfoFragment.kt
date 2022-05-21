@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.lyvetech.transnature.R
 import com.lyvetech.transnature.core.util.Constants
 import com.lyvetech.transnature.core.util.OnboardingUtils
 import com.lyvetech.transnature.databinding.FragmentTrackingInfoBinding
+import com.lyvetech.transnature.features.tracking.domain.model.Session
 import com.lyvetech.transnature.features.tracking.ui.tracking_info.adapter.TrackingInfoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -95,12 +98,21 @@ class TrackingInfoFragment : Fragment() {
 
     private fun manageBindingViews() {
         with(binding) {
-            fabReset.setOnClickListener { resetTrails() }
+            fabReset.setOnClickListener {
+                MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+                    .setTitle(resources.getString(R.string.alert_title))
+                    .setMessage(resources.getString(R.string.alert_subtitle))
+                    .setPositiveButton(resources.getString(R.string.alert_pos_button)) { _, _ ->
+                        resetTrails()
+                    }
+                    .setNegativeButton(resources.getString(R.string.alert_neg_button)) { _, _ -> }
+                    .show()
+            }
         }
     }
 
     private fun resetTrails() {
         viewModel.deleteAllSessions()
-        setRecyclerView()
+        getSessions()
     }
 }

@@ -25,6 +25,13 @@
     <string name="btn_pause">Pause</string>
     <string name="btn_resume">Resume</string>
 
+    <!-- Sessions fragment -->
+    <string name="alert_title">Reset sessions</string>
+    <string name="alert_subtitle">Are you sure to reset sessions?</string>
+    <string name="alert_pos_button">Yes</string>
+    <string name="alert_neg_button">Cancel</string>
+    <string name="txt_sessions_empty">Oops, sessions are empty</string>
+
     <!-- Bottom nav menu  -->
     <string name="title_menu_feed">Feed</string>
     <string name="title_menu_fav">Favorites</string>
