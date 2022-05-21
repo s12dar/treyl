@@ -19,10 +19,25 @@ class FeedRepositoryImpl @Inject constructor(
         withContext(ioDispatcher) {
             when (val result = remoteDataSource.getAllTrails()) {
                 is Resource.Success -> {
-                    val trails = result.data
+                    val trails = result.data?.map { it.toTrailEntity() }
                     if (trails != null) {
-                        trails.map { it.name }.let { localDataSource.deleteTrails(it) }
-                        localDataSource.insertTrails(trails.map { it.toTrailEntity() })
+                        val namesOfNewTrails = mutableMapOf<String, Int>()
+                        val oldTrails = localDataSource.getAllTrails()
+
+                        for (newTrail in trails) {
+                            namesOfNewTrails[newTrail.name] = trails.indexOf(newTrail)
+                        }
+
+                        for (oldTrail in oldTrails) {
+                            if (namesOfNewTrails.containsKey(oldTrail.name) && oldTrail.isFav) {
+                                trails[namesOfNewTrails.getValue(oldTrail.name)].isFav = true
+                            }
+                        }
+
+                        trails.map { it.name }.let {
+                            localDataSource.deleteTrails(it)
+                        }
+                        localDataSource.insertTrails(trails)
                         val newTrails = localDataSource.getAllTrails().map { it.toTrail() }
                         Resource.Success(newTrails)
                     } else {

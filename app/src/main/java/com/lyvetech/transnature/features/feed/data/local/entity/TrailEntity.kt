@@ -20,7 +20,7 @@ data class TrailEntity(
     val difficultyLevel: String,
     val accession: String,
     val warning: String,
-    val isFav: Boolean = false,
+    var isFav: Boolean = false,
     val tag: String,
     @PrimaryKey val id: Int? = null
 ) {
