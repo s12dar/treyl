@@ -144,8 +144,6 @@ class FeedInfoFragment : Fragment() {
                 tvWarningsContent.text = trail.warning
             }
         }
-        
-        assignTrailSign()
     }
 
     private fun setUpImgViewPager() {
@@ -253,50 +251,5 @@ class FeedInfoFragment : Fragment() {
         }
 
         return loadGpxData(Xml.newPullParser(), inputStream)
-    }
-
-    private fun assignTrailSign() {
-        when (currentTrail.tag) {
-            TAG_SCARITA -> {
-                binding.ivTrailSign.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireActivity(),
-                        R.drawable.scarita_flag
-                    )
-                )
-            }
-            TAG_CARAS -> {
-                binding.ivTrailSign.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireActivity(),
-                        R.drawable.jigoria_flag
-                    )
-                )
-            }
-            TAG_CASCADA -> {
-                binding.ivTrailSign.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireActivity(),
-                        R.drawable.cascada_flag
-                    )
-                )
-            }
-            TAG_LOREM -> {
-                binding.ivTrailSign.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireActivity(),
-                        R.drawable.scarita_flag
-                    )
-                )
-            }
-            else -> {
-                binding.ivTrailSign.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireActivity(),
-                        R.drawable.scarita_flag
-                    )
-                )
-            }
-        }
     }
 }
