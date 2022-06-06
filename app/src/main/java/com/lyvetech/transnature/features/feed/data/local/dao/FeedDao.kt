@@ -5,6 +5,7 @@ import com.lyvetech.transnature.features.feed.data.local.entity.TrailEntity
 
 @Dao
 interface FeedDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTrails(trails: List<TrailEntity>)
 

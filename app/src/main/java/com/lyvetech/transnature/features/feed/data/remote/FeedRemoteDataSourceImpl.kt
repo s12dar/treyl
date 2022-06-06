@@ -29,5 +29,4 @@ class FeedRemoteDataSourceImpl @Inject constructor(
     override suspend fun getSearchedTrails(name: String): Resource<List<TrailDto>> {
         TODO("Not yet implemented")
     }
-
 }

@@ -125,7 +125,7 @@ class FeedFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         if (LocationUtils.hasLocationPermissions(requireContext())) {
             return
         }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             EasyPermissions.requestPermissions(
                 this,
                 "You need to accept location permissions to use this app",
