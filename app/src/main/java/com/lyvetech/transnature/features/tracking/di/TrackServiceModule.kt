@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.lyvetech.transnature.R
@@ -27,6 +29,7 @@ object ServiceModule {
         @ApplicationContext app: Context
     ) = FusedLocationProviderClient(app)
 
+    @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("UnspecifiedImmutableFlag")
     @ServiceScoped
     @Provides
@@ -38,7 +41,7 @@ object ServiceModule {
         Intent(app, MainActivity::class.java).also {
             it.action = Constants.ACTION_SHOW_TRACKING_FRAGMENT
         },
-        PendingIntent.FLAG_UPDATE_CURRENT
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
     )
 
     @ServiceScoped

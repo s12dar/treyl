@@ -2,6 +2,7 @@ package com.lyvetech.transnature.features.feed.ui.feed.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.provider.Settings.Global.putInt
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lyvetech.transnature.R
+import com.lyvetech.transnature.core.util.Constants
 import com.lyvetech.transnature.databinding.TrailItemBinding
 import com.lyvetech.transnature.features.feed.domain.model.Trail
 
