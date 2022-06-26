@@ -49,7 +49,7 @@ class FeedDaoTest {
     }
 
     @Test
-    fun insertTrails() = runBlocking {
+    fun insertTrail_verifyTrailsAreNotEmpty() = runBlocking {
         systemUnderTest.insertTrails(fakeTrailsList)
 
         val allTrails = systemUnderTest.getAllTrails()
@@ -80,7 +80,7 @@ class FeedDaoTest {
     }
 
     @Test
-    fun deleteTrails() = runBlocking {
+    fun deleteTrails_getTrailsReturnEmptyList() = runBlocking {
         systemUnderTest.insertTrails(fakeTrailsList)
         systemUnderTest.deleteTrails(listOf(fakeTrailsList[0].name))
 
@@ -90,7 +90,7 @@ class FeedDaoTest {
     }
 
     @Test
-    fun updateTrail() = runBlocking {
+    fun updateTrail_verifyItsUpdated() = runBlocking {
         systemUnderTest.insertTrails(fakeTrailsList)
         systemUnderTest.updateTrail(fakeUpdatedTrailEntity)
 
