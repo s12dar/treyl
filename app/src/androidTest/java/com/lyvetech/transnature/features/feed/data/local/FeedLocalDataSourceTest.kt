@@ -8,7 +8,6 @@ import androidx.test.filters.MediumTest
 import com.lyvetech.transnature.core.data.local.TransNatureDatabase
 import com.lyvetech.transnature.fakeTrailEntity
 import com.lyvetech.transnature.fakeUpdatedTrailEntity
-import com.lyvetech.transnature.features.feed.data.local.dao.MainCoroutineRule
 import com.lyvetech.transnature.features.feed.data.local.entity.TrailEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,9 +31,6 @@ class FeedLocalDataSourceTest {
 
     @get:Rule
     var instantTaskExecutor = InstantTaskExecutorRule()
-
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
 
     @Before
     fun setUp() {

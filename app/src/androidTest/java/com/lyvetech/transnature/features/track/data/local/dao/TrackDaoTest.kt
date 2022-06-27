@@ -7,7 +7,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.lyvetech.transnature.core.data.local.TransNatureDatabase
 import com.lyvetech.transnature.fakeSessionEntity
-import com.lyvetech.transnature.features.feed.data.local.dao.MainCoroutineRule
 import com.lyvetech.transnature.features.tracking.data.local.dao.TrackDao
 import com.lyvetech.transnature.features.tracking.data.local.entity.SessionEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,9 +29,6 @@ class TrackDaoTest {
 
     @get:Rule
     var instantTaskExecutor = InstantTaskExecutorRule()
-
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
 
     @Before
     fun setup() {
