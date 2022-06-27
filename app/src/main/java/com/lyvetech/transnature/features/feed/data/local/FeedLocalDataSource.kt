@@ -8,6 +8,8 @@ interface FeedLocalDataSource {
 
     suspend fun updateTrail(trail: TrailEntity)
 
+    suspend fun getTrailById(trailId: String): TrailEntity?
+
     suspend fun deleteTrails(trails: List<String>)
 
     suspend fun getSearchedTrails(trail: String): List<TrailEntity>

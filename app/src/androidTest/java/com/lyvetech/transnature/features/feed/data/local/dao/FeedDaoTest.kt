@@ -1,4 +1,4 @@
-package com.lyvetech.transnature.features.feed.data.local.dao;
+package com.lyvetech.transnature.features.feed.data.local.dao
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
@@ -6,8 +6,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.lyvetech.transnature.core.data.local.TransNatureDatabase
-import com.lyvetech.transnature.fakeTrailsList
+import com.lyvetech.transnature.fakeTrailEntity
 import com.lyvetech.transnature.fakeUpdatedTrailEntity
+import com.lyvetech.transnature.features.feed.data.local.entity.TrailEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
@@ -49,40 +50,37 @@ class FeedDaoTest {
     }
 
     @Test
-    fun insertTrail_verifyTrailsAreNotEmpty() = runBlocking {
-        systemUnderTest.insertTrails(fakeTrailsList)
+    fun insertTrail_getTrailByIdAndVerifyItsInserted() = runBlocking {
+        systemUnderTest.insertTrails(listOf(fakeTrailEntity))
 
-        val allTrails = systemUnderTest.getAllTrails()
+        val loaded = systemUnderTest.getTrailById(fakeTrailEntity.id.toString())
 
-        assertThat(allTrails, notNullValue())
-        for (i in allTrails.indices) {
-            assertThat(allTrails[i].id, `is`(fakeTrailsList[i].id))
-            assertThat(allTrails[i].tag, `is`(fakeTrailsList[i].tag))
-            assertThat(allTrails[i].name, `is`(fakeTrailsList[i].name))
-            assertThat(allTrails[i].desc, `is`(fakeTrailsList[i].desc))
-            assertThat(allTrails[i].isFav, `is`(fakeTrailsList[i].isFav))
-            assertThat(allTrails[i].warning, `is`(fakeTrailsList[i].warning))
-            assertThat(allTrails[i].imgRefs, `is`(fakeTrailsList[i].imgRefs))
-            assertThat(allTrails[i].location, `is`(fakeTrailsList[i].location))
-            assertThat(allTrails[i].accession, `is`(fakeTrailsList[i].accession))
-            assertThat(allTrails[i].endLatitude, `is`(fakeTrailsList[i].endLatitude))
-            assertThat(allTrails[i].endLongitude, `is`(fakeTrailsList[i].endLongitude))
-            assertThat(allTrails[i].startLatitude, `is`(fakeTrailsList[i].startLatitude))
-            assertThat(allTrails[i].startLatitude, `is`(fakeTrailsList[i].startLatitude))
-            assertThat(allTrails[i].difficultyLevel, `is`(fakeTrailsList[i].difficultyLevel))
-            assertThat(allTrails[i].distanceInMeters, `is`(fakeTrailsList[i].distanceInMeters))
-            assertThat(allTrails[i].peakPointInMeters, `is`(fakeTrailsList[i].peakPointInMeters))
-            assertThat(
-                allTrails[i].averageTimeInMillis,
-                `is`(fakeTrailsList[i].averageTimeInMillis)
-            )
-        }
+        assertThat(loaded as TrailEntity, notNullValue())
+        assertThat(loaded.id, `is`(fakeTrailEntity.id))
+        assertThat(loaded.tag, `is`(fakeTrailEntity.tag))
+        assertThat(loaded.name, `is`(fakeTrailEntity.name))
+        assertThat(loaded.desc, `is`(fakeTrailEntity.desc))
+        assertThat(loaded.isFav, `is`(fakeTrailEntity.isFav))
+        assertThat(loaded.warning, `is`(fakeTrailEntity.warning))
+        assertThat(loaded.imgRefs, `is`(fakeTrailEntity.imgRefs))
+        assertThat(loaded.location, `is`(fakeTrailEntity.location))
+        assertThat(loaded.accession, `is`(fakeTrailEntity.accession))
+        assertThat(loaded.endLatitude, `is`(fakeTrailEntity.endLatitude))
+        assertThat(loaded.endLongitude, `is`(fakeTrailEntity.endLongitude))
+        assertThat(loaded.startLatitude, `is`(fakeTrailEntity.startLatitude))
+        assertThat(loaded.startLatitude, `is`(fakeTrailEntity.startLatitude))
+        assertThat(loaded.difficultyLevel, `is`(fakeTrailEntity.difficultyLevel))
+        assertThat(loaded.distanceInMeters, `is`(fakeTrailEntity.distanceInMeters))
+        assertThat(loaded.peakPointInMeters, `is`(fakeTrailEntity.peakPointInMeters))
+        assertThat(
+            loaded.averageTimeInMillis, `is`(fakeTrailEntity.averageTimeInMillis)
+        )
     }
 
     @Test
-    fun deleteTrails_getTrailsReturnEmptyList() = runBlocking {
-        systemUnderTest.insertTrails(fakeTrailsList)
-        systemUnderTest.deleteTrails(listOf(fakeTrailsList[0].name))
+    fun deleteTrails_getTrailsVerifyItsEmpty() = runBlocking {
+        systemUnderTest.insertTrails(listOf(fakeTrailEntity))
+        systemUnderTest.deleteTrails(listOf(fakeTrailEntity.name))
 
         val allTrails = systemUnderTest.getAllTrails()
 
@@ -90,17 +88,18 @@ class FeedDaoTest {
     }
 
     @Test
-    fun updateTrail_verifyItsUpdated() = runBlocking {
-        systemUnderTest.insertTrails(fakeTrailsList)
+    fun updateTrail_getByIdAndVerifyItsUpdated() = runBlocking {
+        systemUnderTest.insertTrails(listOf(fakeTrailEntity))
         systemUnderTest.updateTrail(fakeUpdatedTrailEntity)
 
-        val updatedTrail = systemUnderTest.getAllTrails()[0]
-        assertThat(updatedTrail.desc, `is`("Updated desc"))
+        val loaded = systemUnderTest.getTrailById(fakeTrailEntity.id.toString())
+        assertThat(loaded as TrailEntity, notNullValue())
+        assertThat(loaded.desc, `is`("Updated desc"))
     }
 
     @Test
     fun getFavoriteTrails() = runBlocking {
-        systemUnderTest.insertTrails(fakeTrailsList)
+        systemUnderTest.insertTrails(listOf(fakeTrailEntity))
 
         val favTrails = systemUnderTest.getFavoriteTrails()
 

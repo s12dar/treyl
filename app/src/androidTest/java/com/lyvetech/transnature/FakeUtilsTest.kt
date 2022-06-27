@@ -1,6 +1,7 @@
 package com.lyvetech.transnature
 
 import com.lyvetech.transnature.features.feed.data.local.entity.TrailEntity
+import com.lyvetech.transnature.features.tracking.data.local.entity.SessionEntity
 
 val fakeTrailEntity = TrailEntity(
     name = "Name",
@@ -22,8 +23,14 @@ val fakeTrailEntity = TrailEntity(
     id = 1
 )
 
-var fakeUpdatedTrailEntity = fakeTrailEntity.copy(desc = "Updated desc")
-
-val fakeTrailsList = listOf(
-    fakeTrailEntity
+val fakeSessionEntity = SessionEntity(
+    id = 1,
+    title = "Session title",
+    timestamp = 1234L,
+    averageSpeed = 12f,
+    distanceInMeters = 1234,
+    timeInMillis = 4L,
+    caloriesBurnt = 12,
 )
+
+var fakeUpdatedTrailEntity = fakeTrailEntity.copy(desc = "Updated desc")

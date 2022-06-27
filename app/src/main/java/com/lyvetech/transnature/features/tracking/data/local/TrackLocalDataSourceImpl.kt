@@ -16,9 +16,15 @@ class TrackLocalDataSourceImpl @Inject constructor(
             trackDao.insertSession(sessionEntity = sessionEntity)
         }
 
+    override suspend fun getSessionById(sessionId: String): SessionEntity? =
+        withContext(ioDispatcher) {
+            return@withContext trackDao.getSessionById(sessionId)
+        }
 
     override suspend fun deleteSession(sessionEntity: SessionEntity) {
-        TODO("Not yet implemented")
+        withContext(ioDispatcher) {
+            trackDao.deleteSession(sessionEntity)
+        }
     }
 
     override suspend fun deleteAllSessions() {

@@ -6,6 +6,8 @@ interface TrackLocalDataSource {
 
     suspend fun insertSession(sessionEntity: SessionEntity)
 
+    suspend fun getSessionById(sessionId: String): SessionEntity?
+
     suspend fun deleteSession(sessionEntity: SessionEntity)
 
     suspend fun deleteAllSessions()

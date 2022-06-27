@@ -6,14 +6,15 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.lyvetech.transnature.core.data.local.TransNatureDatabase
-import com.lyvetech.transnature.fakeTrailsList
+import com.lyvetech.transnature.fakeTrailEntity
 import com.lyvetech.transnature.fakeUpdatedTrailEntity
 import com.lyvetech.transnature.features.feed.data.local.dao.MainCoroutineRule
+import com.lyvetech.transnature.features.feed.data.local.entity.TrailEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert
 import org.junit.After
 import org.junit.Before
@@ -51,42 +52,37 @@ class FeedLocalDataSourceTest {
     }
 
     @Test
-    fun insertTrail_verifyTrailsAreNotEmpty() = runBlocking {
-        systemUnderTest.insertTrails(fakeTrailsList)
+    fun insertTrail_getTrailByIdAndVerifyItsInserted() = runBlocking {
+        systemUnderTest.insertTrails(listOf(fakeTrailEntity))
 
-        val allTrails = systemUnderTest.getAllTrails()
+        val loaded = systemUnderTest.getTrailById(fakeTrailEntity.id.toString())
 
-        MatcherAssert.assertThat(allTrails, CoreMatchers.notNullValue())
-        for (i in allTrails.indices) {
-            MatcherAssert.assertThat(allTrails[i].id, `is`(fakeTrailsList[i].id))
-            MatcherAssert.assertThat(allTrails[i].tag, `is`(fakeTrailsList[i].tag))
-            MatcherAssert.assertThat(allTrails[i].name, `is`(fakeTrailsList[i].name))
-            MatcherAssert.assertThat(allTrails[i].desc, `is`(fakeTrailsList[i].desc))
-            MatcherAssert.assertThat(allTrails[i].isFav, `is`(fakeTrailsList[i].isFav))
-            MatcherAssert.assertThat(allTrails[i].warning, `is`(fakeTrailsList[i].warning))
-            MatcherAssert.assertThat(allTrails[i].imgRefs, `is`(fakeTrailsList[i].imgRefs))
-            MatcherAssert.assertThat(allTrails[i].location, `is`(fakeTrailsList[i].location))
-            MatcherAssert.assertThat(allTrails[i].accession, `is`(fakeTrailsList[i].accession))
-            MatcherAssert.assertThat(allTrails[i].endLatitude, `is`(fakeTrailsList[i].endLatitude))
-            MatcherAssert.assertThat(allTrails[i].endLongitude, `is`(fakeTrailsList[i].endLongitude))
-            MatcherAssert.assertThat(allTrails[i].startLatitude, `is`(fakeTrailsList[i].startLatitude))
-            MatcherAssert.assertThat(allTrails[i].startLatitude, `is`(fakeTrailsList[i].startLatitude))
-            MatcherAssert.assertThat(allTrails[i].difficultyLevel, `is`(fakeTrailsList[i].difficultyLevel))
-            MatcherAssert.assertThat(allTrails[i].distanceInMeters, `is`(fakeTrailsList[i].distanceInMeters))
-            MatcherAssert.assertThat(allTrails[i].peakPointInMeters, `is`(
-                fakeTrailsList[i].peakPointInMeters)
-            )
-            MatcherAssert.assertThat(
-                allTrails[i].averageTimeInMillis,
-                `is`(fakeTrailsList[i].averageTimeInMillis)
-            )
-        }
+        MatcherAssert.assertThat(loaded as TrailEntity, notNullValue())
+        MatcherAssert.assertThat(loaded.id, `is`(fakeTrailEntity.id))
+        MatcherAssert.assertThat(loaded.tag, `is`(fakeTrailEntity.tag))
+        MatcherAssert.assertThat(loaded.name, `is`(fakeTrailEntity.name))
+        MatcherAssert.assertThat(loaded.desc, `is`(fakeTrailEntity.desc))
+        MatcherAssert.assertThat(loaded.isFav, `is`(fakeTrailEntity.isFav))
+        MatcherAssert.assertThat(loaded.warning, `is`(fakeTrailEntity.warning))
+        MatcherAssert.assertThat(loaded.imgRefs, `is`(fakeTrailEntity.imgRefs))
+        MatcherAssert.assertThat(loaded.location, `is`(fakeTrailEntity.location))
+        MatcherAssert.assertThat(loaded.accession, `is`(fakeTrailEntity.accession))
+        MatcherAssert.assertThat(loaded.endLatitude, `is`(fakeTrailEntity.endLatitude))
+        MatcherAssert.assertThat(loaded.endLongitude, `is`(fakeTrailEntity.endLongitude))
+        MatcherAssert.assertThat(loaded.startLatitude, `is`(fakeTrailEntity.startLatitude))
+        MatcherAssert.assertThat(loaded.startLatitude, `is`(fakeTrailEntity.startLatitude))
+        MatcherAssert.assertThat(loaded.difficultyLevel, `is`(fakeTrailEntity.difficultyLevel))
+        MatcherAssert.assertThat(loaded.distanceInMeters, `is`(fakeTrailEntity.distanceInMeters))
+        MatcherAssert.assertThat(loaded.peakPointInMeters, `is`(fakeTrailEntity.peakPointInMeters))
+        MatcherAssert.assertThat(
+            loaded.averageTimeInMillis, `is`(fakeTrailEntity.averageTimeInMillis)
+        )
     }
 
     @Test
-    fun deleteTrails_getTrailsReturnEmptyList() = runBlocking {
-        systemUnderTest.insertTrails(fakeTrailsList)
-        systemUnderTest.deleteTrails(listOf(fakeTrailsList[0].name))
+    fun deleteTrails_getTrailsVerifyItsEmpty() = runBlocking {
+        systemUnderTest.insertTrails(listOf(fakeTrailEntity))
+        systemUnderTest.deleteTrails(listOf(fakeTrailEntity.name))
 
         val allTrails = systemUnderTest.getAllTrails()
 
@@ -94,17 +90,18 @@ class FeedLocalDataSourceTest {
     }
 
     @Test
-    fun updateTrail_verifyItsUpdated() = runBlocking {
-        systemUnderTest.insertTrails(fakeTrailsList)
+    fun updateTrail_getByIdAndVerifyItsUpdated() = runBlocking {
+        systemUnderTest.insertTrails(listOf(fakeTrailEntity))
         systemUnderTest.updateTrail(fakeUpdatedTrailEntity)
 
-        val updatedTrail = systemUnderTest.getAllTrails()[0]
-        MatcherAssert.assertThat(updatedTrail.desc, `is`("Updated desc"))
+        val loaded = systemUnderTest.getTrailById(fakeTrailEntity.id.toString())
+        MatcherAssert.assertThat(loaded as TrailEntity, notNullValue())
+        MatcherAssert.assertThat(loaded.desc, `is`("Updated desc"))
     }
 
     @Test
     fun getFavoriteTrails() = runBlocking {
-        systemUnderTest.insertTrails(fakeTrailsList)
+        systemUnderTest.insertTrails(listOf(fakeTrailEntity))
 
         val favTrails = systemUnderTest.getFavoriteTrails()
 

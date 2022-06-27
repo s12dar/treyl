@@ -12,6 +12,9 @@ interface TrackDao {
     @Delete
     suspend fun deleteSession(sessionEntity: SessionEntity)
 
+    @Query("SELECT * FROM session_table WHERE id = :sessionId")
+    suspend fun getSessionById(sessionId: String): SessionEntity?
+
     @Query("DELETE FROM session_table")
     suspend fun deleteAllSessions()
 

@@ -12,6 +12,9 @@ interface FeedDao {
     @Update
     suspend fun updateTrail(trail: TrailEntity)
 
+    @Query("SELECT * FROM TrailEntity WHERE id = :trailId")
+    suspend fun getTrailById(trailId: String): TrailEntity?
+
     @Query("DELETE FROM TrailEntity WHERE name IN(:trails)")
     suspend fun deleteTrails(trails: List<String>)
 
